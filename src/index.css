@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bebas Neue", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-script: "Cormorant Garamond", serif;
+
+  --color-forest: #0F3A7D;
+  --color-sage: #1E5BA8;
+  --color-hero-bg: #0D2E63;
+  --color-urgency: #FF6B35;
+  --color-cream: #F0EDE8;
+  --color-label-muted: #BCBCBC;
+}
+
+@layer base {
+  body {
+    @apply bg-forest text-white font-sans antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    @apply uppercase tracking-normal;
+  }
+}
+
+@layer components {
+  .breachen-text {
+    @apply text-[25vw] font-display leading-[0.8] tracking-tighter uppercase select-none pointer-events-none;
+  }
+
+  .vignette {
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .dashed-border {
+    @apply border border-dashed border-white/30 p-2;
+  }
+
+  .tag {
+    @apply px-4 py-2 border border-dashed border-white/50 text-[10px] font-mono tracking-widest uppercase inline-block;
+  }
+
+  .section-container {
+    @apply min-h-screen flex flex-col justify-center py-32 relative;
+  }
+
+  .grain-overlay {
+    @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.03];
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  }
+
+  .sharp-button {
+    @apply transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-forest;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 hover:bg-white/40;
+}
