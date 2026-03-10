@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { 
   Plus, 
@@ -119,30 +120,40 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
 };
 
 const Navbar = () => {
+  const getPath = (item: string) => {
+    switch(item) {
+      case 'HOME': return '/';
+      case 'ABOUT': return '/about';
+      case 'SERVICES': return '/services';
+      case 'CONTACT': return '/contact';
+      default: return '/';
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full z-[100] py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
       {/* Left: Emblem */}
       <div className="pointer-events-auto">
-        <a href="/">
+        <Link to="/">
           <img 
             src="/marginz-logo.jpg" 
             alt="MARGINZ Logo" 
             className="w-32 h-32 object-contain"
             referrerPolicy="no-referrer"
           />
-        </a>
+        </Link>
       </div>
 
       {/* Right: Nav Links */}
       <div className="flex flex-col items-end gap-2 pointer-events-auto">
         {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-          <a 
+          <Link 
             key={item} 
-            href={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
+            to={getPath(item)}
             className="text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
           >
             {item}
-          </a>
+          </Link>
         ))}
       </div>
     </nav>
