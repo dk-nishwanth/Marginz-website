@@ -729,27 +729,35 @@ const Footer = () => {
 };
 
 export default function HomePage() {
+  const [loading, setLoading] = useState(true);
+
   return (
     <div className="relative min-h-screen bg-bg-primary">
       <div className="grain-overlay" />
       
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Programs />
-          <Differentiators />
-          <Testimonials />
-          <GeographicReach />
-          <FAQ />
-        </main>
-        <Footer />
-      </motion.div>
+      <AnimatePresence>
+        {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
+
+      {!loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Programs />
+            <Differentiators />
+            <Testimonials />
+            <GeographicReach />
+            <FAQ />
+          </main>
+          <Footer />
+        </motion.div>
+      )}
     </div>
   );
 }
