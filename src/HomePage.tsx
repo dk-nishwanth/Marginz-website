@@ -138,7 +138,7 @@ const Navbar = () => {
           <img 
             src="/marginz-logo.jpg" 
             alt="MARGINZ Logo" 
-            className="w-20 h-20 md:w-32 md:h-32 object-contain"
+            className="w-28 h-28 md:w-40 md:h-40 object-contain"
             referrerPolicy="no-referrer"
           />
         </Link>
@@ -233,7 +233,7 @@ const Hero = () => {
         </div>
 
         {/* Bottom: Headline */}
-        <div className="w-full relative -mb-8 md:-mb-12">
+        <div className="w-full relative mb-0 md:-mb-12 shrink-0">
           <h1 className="breachen-text text-white text-center">
             TRANSFORM
           </h1>
