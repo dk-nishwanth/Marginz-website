@@ -28,7 +28,7 @@
 
 @layer components {
   .breachen-text {
-    @apply text-[25vw] font-display leading-[0.8] tracking-tighter uppercase select-none pointer-events-none;
+    @apply text-[18vw] md:text-[20vw] lg:text-[22vw] font-display leading-[0.8] tracking-tighter uppercase select-none pointer-events-none;
   }
 
   .vignette {

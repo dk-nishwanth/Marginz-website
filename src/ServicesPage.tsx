@@ -73,13 +73,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
+    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
       <div className="pointer-events-auto">
         <Link to="/">
           <img 
             src="/marginz-logo.jpg" 
             alt="MARGINZ Logo" 
-            className="w-32 h-32 object-contain"
+            className="w-20 h-20 md:w-32 md:h-32 object-contain"
             referrerPolicy="no-referrer"
           />
         </Link>
@@ -87,12 +87,12 @@ const Navbar = () => {
 
       <div className="absolute left-1/2 -translate-x-1/2"></div>
 
-      <div className="flex flex-col items-end gap-2 pointer-events-auto">
+      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
         {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
           <Link 
             key={item} 
             to={getPath(item)}
-            className="text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
+            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
           >
             {item}
           </Link>
@@ -120,7 +120,7 @@ const HeroSection = () => {
           <div className="lg:col-span-6 space-y-12">
             <div className="space-y-6">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-urgency">OUR SERVICES</span>
-              <h1 className="text-7xl md:text-8xl font-display text-white leading-[0.9]">
+              <h1 className="text-5xl md:text-8xl font-display text-white leading-[0.9]">
                 BEST IT SOLUTIONS
               </h1>
               <p className="text-xl leading-relaxed text-white/80 max-w-xl">
@@ -128,7 +128,7 @@ const HeroSection = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 pt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
               <div className="space-y-2">
                 <div className="text-5xl font-display text-urgency">6+</div>
                 <p className="text-white/70 font-mono text-sm uppercase tracking-wide">Service Categories</p>
@@ -146,7 +146,7 @@ const HeroSection = () => {
 
           <div className="lg:col-span-6">
             <div className="dashed-border w-fit">
-              <div className="w-[400px] h-[500px] overflow-hidden">
+              <div className="w-full max-w-[400px] aspect-[4/5] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=700&fit=crop&crop=center&q=85&auto=format" 
                   alt="Services" 
@@ -181,7 +181,7 @@ const ServicesOverview = () => {
           </div>
 
           <div className="lg:col-span-9 lg:pl-12">
-            <h2 className="text-6xl md:text-7xl font-display text-white/75 leading-[0.8] mb-16 max-w-5xl">
+            <h2 className="text-4xl md:text-7xl font-display text-white/75 leading-[0.8] mb-12 md:mb-16 max-w-5xl">
               COMPREHENSIVE IT SOLUTIONS FOR YOUR BUSINESS
             </h2>
             <p className="text-lg leading-relaxed text-white/80 max-w-3xl">
@@ -210,7 +210,7 @@ const ServiceCategories = () => {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <h2 className="text-[70px] leading-[0.8] text-white mb-8">OUR SERVICES</h2>
+        <h2 className="text-5xl md:text-[70px] leading-[0.8] text-white mb-8">OUR SERVICES</h2>
         <p className="text-lg text-white/70 mb-24 max-w-2xl">
           Explore our comprehensive range of IT services designed to meet your business needs and drive digital transformation.
         </p>
@@ -276,7 +276,7 @@ const TechStack = () => {
             </div>
           </div>
           <div className="lg:col-span-8">
-            <h2 className="text-6xl md:text-7xl font-display text-white uppercase mb-16">TECHNOLOGY EXPERTISE</h2>
+            <h2 className="text-4xl md:text-7xl font-display text-white uppercase mb-12 md:mb-16">TECHNOLOGY EXPERTISE</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {TECH_STACK.map((stack, i) => (
                 <div key={i} className="space-y-4">
@@ -313,7 +313,7 @@ const CTA = () => {
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
         <div className="text-center space-y-8">
-          <h2 className="text-6xl md:text-7xl font-display text-white">
+          <h2 className="text-4xl md:text-7xl font-display text-white">
             READY TO TRANSFORM YOUR BUSINESS?
           </h2>
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
@@ -377,15 +377,15 @@ const Footer = () => {
             </address>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col items-end gap-4">
+          <div className="lg:col-span-3 flex flex-col items-start lg:items-end gap-4 mt-12 lg:mt-0">
             {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-              <a 
+              <Link 
                 key={item}
-                href={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
-                className="font-display text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
+                to={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
+                className="font-display text-lg md:text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
               >
                 {item}
-              </a>
+              </Link>
             ))}
             <div className="mt-8 font-mono text-xs text-white/50 uppercase tracking-[0.15em]">
               MARGINZ SOLUTIONS

@@ -131,26 +131,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
+    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
       {/* Left: Emblem */}
       <div className="pointer-events-auto">
         <Link to="/">
           <img 
             src="/marginz-logo.jpg" 
             alt="MARGINZ Logo" 
-            className="w-32 h-32 object-contain"
+            className="w-20 h-20 md:w-32 md:h-32 object-contain"
             referrerPolicy="no-referrer"
           />
         </Link>
       </div>
 
       {/* Right: Nav Links */}
-      <div className="flex flex-col items-end gap-2 pointer-events-auto">
+      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
         {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
           <Link 
             key={item} 
             to={getPath(item)}
-            className="text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
+            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
           >
             {item}
           </Link>
@@ -187,13 +187,13 @@ const Hero = () => {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-12 pt-32">
+      <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-12 pt-24 md:pt-32">
 
 
         {/* Middle Content */}
-        <div className="flex flex-col md:flex-row items-center justify-between mt-auto mb-auto gap-12">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-auto mb-auto gap-8 relative z-20 w-full">
           {/* Left: Descriptor & Portrait */}
-          <div className="max-w-[420px] space-y-8">
+          <div className="w-full md:w-auto md:max-w-[420px] space-y-8 flex-shrink-0">
             <p className="text-[15px] leading-relaxed text-white">
               The Strategist - ROI & Business Outcome. Beyond Code: Delivering Measurable MARGINZ on Digital Investment. We engineer the infrastructure of tomorrow's market leadership.
             </p>
@@ -211,21 +211,21 @@ const Hero = () => {
           </div>
 
           {/* Center: Headline */}
-          <div className="flex items-center gap-4">
-            <span className="text-[11px] font-mono text-white/50 uppercase tracking-[0.3em]">Start Your Journey</span>
-            <div className="flex items-center gap-2">
-              <div className="px-5 py-2.5 bg-cream rounded-sm font-mono text-base text-forest font-bold">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-end gap-4 flex-1 md:pr-12">
+            <span className="text-[11px] font-mono text-white/50 uppercase tracking-[0.3em] hidden xl:block">Start Your Journey</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="px-5 py-2.5 bg-cream rounded-sm font-mono text-base text-forest font-bold whitespace-nowrap">
                 70 PROJECTS
               </div>
-              <div className="px-5 py-2.5 bg-urgency rounded-sm font-mono text-base text-white font-bold">
+              <div className="px-5 py-2.5 bg-urgency rounded-sm font-mono text-base text-white font-bold whitespace-nowrap">
                 99.99% UPTIME
               </div>
             </div>
           </div>
 
           {/* Right Edge: Vertical Text */}
-          <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
-            <div className="vertical-text text-[10px] font-mono text-white uppercase tracking-widest">
+          <div className="hidden md:flex flex-col items-center justify-center gap-4 flex-shrink-0 w-8">
+            <div className="vertical-text text-[10px] font-mono text-white uppercase tracking-widest whitespace-nowrap">
               DIGITAL TRANSFORMATION PARTNER
             </div>
             <div className="w-2 h-2 bg-urgency rounded-full" />
@@ -286,7 +286,7 @@ const About = () => {
 
           {/* Center: Content */}
           <div className="lg:col-span-4 lg:pl-12">
-            <h2 className="text-6xl md:text-7xl font-display text-white/75 leading-[0.8] mb-16 max-w-3xl">
+            <h2 className="text-4xl md:text-7xl font-display text-white/75 leading-[0.8] mb-12 md:mb-16 max-w-3xl">
               THE ARCHITECTURE OF UNASSAILABLE DIGITAL RESILIENCE
             </h2>
             <div className="space-y-12">
@@ -307,7 +307,7 @@ const About = () => {
           {/* Right: Image */}
           <div className="lg:col-span-5">
             <div className="dashed-border w-fit">
-              <div className="w-[390px] h-[440px] overflow-hidden">
+              <div className="w-full max-w-[390px] aspect-[39/44] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=390&h=440&fit=crop&crop=center&q=85&auto=format" 
                   alt="Digital Resilience" 
@@ -331,7 +331,7 @@ const AboutContinued = () => {
           {/* Left: Portrait */}
           <div className="lg:col-span-5">
             <div className="dashed-border w-fit">
-              <div className="w-[390px] h-[440px] overflow-hidden">
+              <div className="w-full max-w-[390px] aspect-[39/44] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=390&h=440&fit=crop&crop=center&q=85&auto=format" 
                   alt="MARGINZ Team" 
@@ -411,7 +411,7 @@ const Programs = () => {
 
               {/* Top Center-Right Headline */}
               <div className="lg:col-span-10">
-                <h2 className="text-6xl md:text-7xl font-display text-white leading-[0.8] mb-16">
+                <h2 className="text-4xl md:text-7xl font-display text-white leading-[0.8] mb-12 md:mb-16">
                   {program.title}
                 </h2>
               </div>
@@ -419,7 +419,7 @@ const Programs = () => {
               {/* Left Photo */}
               <div className="lg:col-span-5">
                 <div className="dashed-border w-fit">
-                  <div className="w-[390px] h-[430px] overflow-hidden bg-forest/50">
+                  <div className="w-full max-w-[390px] aspect-[39/43] overflow-hidden bg-forest/50">
                     <img 
                       src={program.image}
                       alt={program.title}
@@ -432,7 +432,7 @@ const Programs = () => {
               </div>
 
               {/* Center Label */}
-              <div className="lg:col-span-1 flex justify-center items-center h-full">
+              <div className="lg:col-span-1 hidden lg:flex justify-center items-center h-full">
                 <span className="font-mono text-sm text-white/50 uppercase tracking-[0.15em] vertical-text">
                   {program.label}
                 </span>
@@ -480,11 +480,11 @@ const Differentiators = () => {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
           <div className="lg:col-span-6">
-            <h2 className="text-[70px] leading-[0.8] text-white mb-12">THIS IS WHERE WE MAKE THE DIFFERENCE</h2>
+            <h2 className="text-5xl md:text-[70px] leading-[0.8] text-white mb-8 md:mb-12">THIS IS WHERE WE MAKE THE DIFFERENCE</h2>
           </div>
           <div className="lg:col-span-6">
             <div className="dashed-border w-fit">
-              <div className="w-[350px] h-[400px] overflow-hidden">
+              <div className="w-full max-w-[350px] aspect-[35/40] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=350&h=400&fit=crop&crop=center&q=85&auto=format" 
                   alt="Our Difference" 
@@ -596,7 +596,7 @@ const GeographicReach = () => {
         <div className="absolute inset-0 vignette" />
       </div>
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <h2 className="text-[90px] leading-[0.8] text-white max-w-4xl">PARTNER WITH 100+ COMPANIES ACROSS 8 INDUSTRY VERTICALS</h2>
+        <h2 className="text-5xl md:text-[90px] leading-[0.8] text-white max-w-4xl">PARTNER WITH 100+ COMPANIES ACROSS 8 INDUSTRY VERTICALS</h2>
       </div>
     </section>
   );
@@ -616,7 +616,7 @@ const FAQ = () => {
               <Crosshair size={20} className="text-white/50" />
             </div>
             <div className="dashed-border w-fit">
-              <div className="w-[320px] h-[380px] overflow-hidden">
+              <div className="w-full max-w-[320px] aspect-[32/38] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=320&h=380&fit=crop&crop=center&q=85&auto=format" 
                   alt="FAQ Support" 
@@ -627,7 +627,7 @@ const FAQ = () => {
             </div>
           </div>
           <div className="lg:col-span-7">
-            <h2 className="text-6xl md:text-7xl font-display text-white uppercase mb-16">FREQUENTLY ASKED QUESTIONS</h2>
+            <h2 className="text-4xl md:text-7xl font-display text-white uppercase mb-12 md:mb-16">FREQUENTLY ASKED QUESTIONS</h2>
             <div className="space-y-4">
               {FAQS.map((faq, i) => (
                 <div key={i} className="border-b border-dashed border-white/30">
@@ -719,15 +719,15 @@ const Footer = () => {
           </div>
 
           {/* Column 4: Nav Links */}
-          <div className="lg:col-span-3 flex flex-col items-end gap-4">
+          <div className="lg:col-span-3 flex flex-col items-start lg:items-end gap-4 mt-12 lg:mt-0">
             {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-              <a 
+              <Link 
                 key={item}
-                href={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
-                className="font-display text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
+                to={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
+                className="font-display text-lg md:text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
               >
                 {item}
-              </a>
+              </Link>
             ))}
             <div className="mt-8 font-mono text-xs text-white/50 uppercase tracking-[0.15em]">
               MARGINZ SOLUTIONS

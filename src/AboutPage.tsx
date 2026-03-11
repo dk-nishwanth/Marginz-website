@@ -86,26 +86,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
+    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
       {/* Left: Emblem */}
       <div className="pointer-events-auto">
         <Link to="/">
           <img 
             src="/marginz-logo.jpg" 
             alt="MARGINZ Logo" 
-            className="w-32 h-32 object-contain"
+            className="w-20 h-20 md:w-32 md:h-32 object-contain"
             referrerPolicy="no-referrer"
           />
         </Link>
       </div>
 
       {/* Right: Nav Links */}
-      <div className="flex flex-col items-end gap-2 pointer-events-auto">
+      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
         {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
           <Link 
             key={item} 
             to={getPath(item)}
-            className="text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
+            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
           >
             {item}
           </Link>
@@ -136,7 +136,7 @@ const HeroSection = () => {
           <div className="lg:col-span-6 space-y-12">
             <div className="space-y-6">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-urgency">ABOUT MARGINZ</span>
-              <h1 className="text-7xl md:text-8xl font-display text-white leading-[0.9]">
+              <h1 className="text-5xl md:text-8xl font-display text-white leading-[0.9]">
                 EMPOWERING PEOPLE, BUILDING TECHNOLOGY
               </h1>
               <p className="text-xl leading-relaxed text-white/80 max-w-xl">
@@ -145,7 +145,7 @@ const HeroSection = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-8 pt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
               <div className="space-y-2">
                 <div className="text-5xl font-display text-urgency">2+</div>
                 <p className="text-white/70 font-mono text-sm uppercase tracking-wide">Years of Experience</p>
@@ -165,7 +165,7 @@ const HeroSection = () => {
           {/* Right: Image */}
           <div className="lg:col-span-6">
             <div className="dashed-border w-fit">
-              <div className="w-[400px] h-[500px] overflow-hidden">
+              <div className="w-full max-w-[400px] aspect-[4/5] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&h=700&fit=crop&crop=center&q=85&auto=format" 
                   alt="Team Collaboration" 
@@ -202,7 +202,7 @@ const MissionVision = () => {
 
           {/* Right: Content */}
           <div className="lg:col-span-9 lg:pl-12">
-            <h2 className="text-6xl md:text-7xl font-display text-white/75 leading-[0.8] mb-16 max-w-5xl">
+            <h2 className="text-4xl md:text-7xl font-display text-white/75 leading-[0.8] mb-12 md:mb-16 max-w-5xl">
               2+ YEARS OF COMBINED EXPERTISE
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -251,7 +251,7 @@ const Milestones = () => {
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <h2 className="text-[70px] leading-[0.8] text-white mb-8">COMPANY MILESTONES</h2>
+        <h2 className="text-5xl md:text-[70px] leading-[0.8] text-white mb-8">COMPANY MILESTONES</h2>
         <p className="text-lg text-white/70 mb-24 max-w-2xl">
           Milestones That Power Digital Transformation. Each achievement reflects our drive to build innovative, scalable, and secure solutions—turning business objectives into powerful technological assets and delivering measurable impact for every client.
         </p>
@@ -287,7 +287,7 @@ const CoreValues = () => {
             </div>
           </div>
           <div className="lg:col-span-8">
-            <h2 className="text-6xl md:text-7xl font-display text-white uppercase mb-16">OUR CORE VALUES</h2>
+            <h2 className="text-4xl md:text-7xl font-display text-white uppercase mb-12 md:mb-16">OUR CORE VALUES</h2>
             <div className="space-y-4">
               {CORE_VALUES.map((value, i) => (
                 <div key={i} className="border-b border-dashed border-white/30">
@@ -344,7 +344,7 @@ const CTA = () => {
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
         <div className="text-center space-y-8">
-          <h2 className="text-6xl md:text-7xl font-display text-white">
+          <h2 className="text-4xl md:text-7xl font-display text-white">
             TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ
           </h2>
           <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors">
@@ -410,15 +410,15 @@ const Footer = () => {
           </div>
 
           {/* Column 4: Nav Links */}
-          <div className="lg:col-span-3 flex flex-col items-end gap-4">
+          <div className="lg:col-span-3 flex flex-col items-start lg:items-end gap-4 mt-12 lg:mt-0">
             {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-              <a 
+              <Link 
                 key={item}
-                href={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
-                className="font-display text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
+                to={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
+                className="font-display text-lg md:text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
               >
                 {item}
-              </a>
+              </Link>
             ))}
             <div className="mt-8 font-mono text-xs text-white/50 uppercase tracking-[0.15em]">
               MARGINZ SOLUTIONS
