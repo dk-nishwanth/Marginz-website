@@ -168,9 +168,6 @@ const About = () => {
                 <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
                   Read more
                 </button>
-                <div className="font-script text-4xl text-white opacity-80 pt-2">
-                  MARGINZ Solutions
-                </div>
               </div>
             </div>
           </div>
