@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Crosshair } from 'lucide-react';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { updateMetaTags, SEO_CONFIG, updateCanonicalUrl } from './utils/seo';
+import { addSchemaMarkup, removeSchemaMarkup, organizationSchema } from './utils/schema';
+import { trackPageView, trackFormSubmission } from './utils/analytics';
 
 interface FormData {
   name: string;
@@ -10,45 +14,21 @@ interface FormData {
   message: string;
 }
 
-const Navbar = () => {
-  const getPath = (item: string) => {
-    switch(item) {
-      case 'HOME': return '/';
-      case 'ABOUT': return '/about';
-      case 'SERVICES': return '/services';
-      case 'CONTACT': return '/contact';
-      default: return '/';
-    }
-  };
+interface FormErrors {
+  [key: string]: string;
+}
 
-  return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
-      <div className="pointer-events-auto">
-        <Link to="/">
-          <img 
-            src="/marginz-logo.jpg" 
-            alt="MARGINZ Logo" 
-            className="w-20 h-20 md:w-32 md:h-32 object-contain"
-            referrerPolicy="no-referrer"
-          />
-        </Link>
-      </div>
-
-      <div className="absolute left-1/2 -translate-x-1/2"></div>
-
-      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
-        {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-          <Link 
-            key={item} 
-            to={getPath(item)}
-            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
-          >
-            {item}
-          </Link>
-        ))}
-      </div>
-    </nav>
-  );
+const validateForm = (data: FormData): FormErrors => {
+  const errors: FormErrors = {};
+  
+  if (!data.name.trim()) errors.name = 'Name is required';
+  if (!data.email.trim()) errors.email = 'Email is required';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Invalid email format';
+  if (!data.service) errors.service = 'Please select a service';
+  if (!data.subject.trim()) errors.subject = 'Subject is required';
+  if (!data.message.trim()) errors.message = 'Message is required';
+  
+  return errors;
 };
 
 const HeroSection = () => {
@@ -57,9 +37,9 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Contact Hero" 
+          alt="Contact page hero background" 
           className="w-full h-full object-cover grayscale brightness-[0.2]"
-          referrerPolicy="no-referrer"
+          loading="eager"
         />
         <div className="vignette absolute inset-0" />
       </div>
@@ -89,16 +69,39 @@ const ContactFormSection = () => {
     subject: '',
     message: ''
   });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', service: '', subject: '', message: '' });
+    const newErrors = validateForm(formData);
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '', service: '', subject: '', message: '' });
+      trackFormSubmission('contact', true);
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      trackFormSubmission('contact', false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -106,72 +109,83 @@ const ContactFormSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Contact Background" 
+          alt="Contact form background" 
           className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
+          loading="lazy"
         />
         <div className="vignette absolute inset-0" />
       </div>
 
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Left: Label */}
           <div className="lg:col-span-3 flex flex-col items-start gap-12">
             <img 
               src="/marginz-logo.jpg" 
               alt="MARGINZ Logo" 
               className="w-12 h-12 object-contain"
-              referrerPolicy="no-referrer"
+              loading="lazy"
             />
             <div className="flex flex-col gap-4">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-label-muted">CONTACT FORM</span>
-              <Crosshair size={20} className="text-label-muted" />
+              <Crosshair size={20} className="text-label-muted" aria-hidden="true" />
             </div>
           </div>
 
-          {/* Right: Form */}
           <div className="lg:col-span-9 lg:pl-12">
             <h2 className="text-4xl md:text-7xl font-display text-white/75 leading-[0.8] mb-12 md:mb-16 max-w-4xl">
               CONTACT FORM AND INFORMATION
             </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6">
+                {submitSuccess && (
+                  <div className="p-4 bg-green-500/20 border border-green-500 text-green-100 rounded" role="alert">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+
                 <div>
-                  <label className="block text-sm font-mono tracking-widest mb-3 text-white/80">Name</label>
+                  <label htmlFor="name" className="block text-sm font-mono tracking-widest mb-3 text-white/80">Name</label>
                   <input
                     type="text"
+                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-forest/50 border border-white/20 px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition"
+                    className={`w-full bg-forest/50 border ${errors.name ? 'border-red-500' : 'border-white/20'} px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition`}
                     placeholder="Your name"
-                    required
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
+                  {errors.name && <p id="name-error" className="text-red-400 text-sm mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-mono tracking-widest mb-3 text-white/80">Email</label>
+                  <label htmlFor="email" className="block text-sm font-mono tracking-widest mb-3 text-white/80">Email</label>
                   <input
                     type="email"
+                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-forest/50 border border-white/20 px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition"
+                    className={`w-full bg-forest/50 border ${errors.email ? 'border-red-500' : 'border-white/20'} px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition`}
                     placeholder="your@email.com"
-                    required
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
                   />
+                  {errors.email && <p id="email-error" className="text-red-400 text-sm mt-1">{errors.email}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-mono tracking-widest mb-3 text-white/80">Select Service</label>
+                  <label htmlFor="service" className="block text-sm font-mono tracking-widest mb-3 text-white/80">Select Service</label>
                   <select
+                    id="service"
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full bg-forest/50 border border-white/20 px-6 py-4 text-white focus:outline-none focus:border-urgency transition"
-                    required
+                    className={`w-full bg-forest/50 border ${errors.service ? 'border-red-500' : 'border-white/20'} px-6 py-4 text-white focus:outline-none focus:border-urgency transition`}
+                    aria-invalid={!!errors.service}
+                    aria-describedby={errors.service ? 'service-error' : undefined}
                   >
                     <option value="">Select service</option>
                     <option value="dynamic-website">Corporate Dynamic Websites</option>
@@ -181,42 +195,49 @@ const ContactFormSection = () => {
                     <option value="crm-erp">CRM & ERP Solutions</option>
                     <option value="lms-cms">LMS & CMS Solutions</option>
                   </select>
+                  {errors.service && <p id="service-error" className="text-red-400 text-sm mt-1">{errors.service}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-mono tracking-widest mb-3 text-white/80">Subject</label>
+                  <label htmlFor="subject" className="block text-sm font-mono tracking-widest mb-3 text-white/80">Subject</label>
                   <input
                     type="text"
+                    id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full bg-forest/50 border border-white/20 px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition"
+                    className={`w-full bg-forest/50 border ${errors.subject ? 'border-red-500' : 'border-white/20'} px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition`}
                     placeholder="Subject"
-                    required
+                    aria-invalid={!!errors.subject}
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
                   />
+                  {errors.subject && <p id="subject-error" className="text-red-400 text-sm mt-1">{errors.subject}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-mono tracking-widest mb-3 text-white/80">Message</label>
+                  <label htmlFor="message" className="block text-sm font-mono tracking-widest mb-3 text-white/80">Message</label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-forest/50 border border-white/20 px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition h-40 resize-none"
+                    className={`w-full bg-forest/50 border ${errors.message ? 'border-red-500' : 'border-white/20'} px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-urgency transition h-40 resize-none`}
                     placeholder="Your message"
-                    required
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                   ></textarea>
+                  {errors.message && <p id="message-error" className="text-red-400 text-sm mt-1">{errors.message}</p>}
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-urgency text-white py-4 font-display tracking-wider hover:bg-urgency/90 transition sharp-button text-lg"
+                  disabled={isSubmitting}
+                  className="w-full bg-urgency text-white py-4 font-display tracking-wider hover:bg-urgency/90 disabled:opacity-50 disabled:cursor-not-allowed transition sharp-button text-lg focus:outline-none focus:ring-2 focus:ring-white"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
 
-              {/* Contact Info */}
               <div className="space-y-12">
                 <div>
                   <h3 className="text-2xl font-display text-white mb-4">GET IN TOUCH</h3>
@@ -238,17 +259,17 @@ const ContactFormSection = () => {
 
                   <div>
                     <h5 className="font-mono text-sm uppercase tracking-widest text-urgency mb-3">Our Location</h5>
-                    <p className="text-white/70 leading-relaxed">
+                    <address className="text-white/70 leading-relaxed not-italic">
                       5th Floor, The Executive Center<br />
                       Tamarai Tech Park, Guindy<br />
                       Chennai – 600032, India
-                    </p>
+                    </address>
                   </div>
 
                   <div>
                     <h5 className="font-mono text-sm uppercase tracking-widest text-urgency mb-3">Phone</h5>
                     <p className="text-white/70">
-                      <a href="tel:+914400000000" className="hover:text-white transition">
+                      <a href="tel:+914400000000" className="hover:text-white transition focus:outline-none focus:ring-2 focus:ring-urgency rounded px-1">
                         +91 44 0000 0000
                       </a>
                     </p>
@@ -257,7 +278,7 @@ const ContactFormSection = () => {
                   <div>
                     <h5 className="font-mono text-sm uppercase tracking-widest text-urgency mb-3">Email</h5>
                     <p className="text-white/70">
-                      <a href="mailto:contact@marginz-solutions.com" className="hover:text-white transition">
+                      <a href="mailto:contact@marginz-solutions.com" className="hover:text-white transition focus:outline-none focus:ring-2 focus:ring-urgency rounded px-1">
                         contact@marginz-solutions.com
                       </a>
                     </p>
@@ -278,9 +299,9 @@ const CTA = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="CTA Background" 
+          alt="Call to action background" 
           className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
+          loading="lazy"
         />
         <div className="vignette absolute inset-0" />
       </div>
@@ -290,7 +311,7 @@ const CTA = () => {
           <h2 className="text-4xl md:text-7xl font-display text-white">
             TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ
           </h2>
-          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors">
+          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
             Show your Interest
           </button>
         </div>
@@ -299,76 +320,31 @@ const CTA = () => {
   );
 };
 
-const Footer = () => {
-  return (
-    <footer className="relative bg-forest pt-32 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1423345092054-524a33f20680?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Footer Background" 
-          className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
-        />
-        <div className="vignette absolute inset-0" />
-      </div>
-
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-32">
-          <div className="lg:col-span-3">
-            <img 
-              src="/marginz-logo.jpg" 
-              alt="MARGINZ Logo" 
-              className="w-20 h-20 object-contain mb-8"
-              referrerPolicy="no-referrer"
-            />
-            <ul className="space-y-4 font-mono text-sm text-white/70">
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-              <li className="pt-6 mt-4 border-t border-white/20">Copyright ©2026 MARGINZ</li>
-              <li>All rights reserved</li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="font-mono text-xs uppercase tracking-[0.15em] text-white/50 mb-8">CONTACT</h4>
-            <ul className="space-y-4 font-mono text-sm text-white/70">
-              <li><a href="mailto:devx.marginz@gmail.com" className="hover:text-white transition-colors">devx.marginz@gmail.com</a></li>
-              <li><a href="tel:+19285557874" className="hover:text-white transition-colors">+1 928-555-7874</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="font-mono text-xs uppercase tracking-[0.15em] text-white/50 mb-8">LOCATION</h4>
-            <address className="font-mono text-sm text-white/70 leading-relaxed not-italic">
-              5th Floor, The Executive Center<br />
-              Tamarai Tech Park, Guindy<br />
-              India
-            </address>
-          </div>
-
-          <div className="lg:col-span-3 flex flex-col items-start lg:items-end gap-4 mt-12 lg:mt-0">
-            {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-              <Link 
-                key={item}
-                to={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
-                className="font-display text-lg md:text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
-              >
-                {item}
-              </Link>
-            ))}
-            <div className="mt-8 font-mono text-xs text-white/50 uppercase tracking-[0.15em]">
-              MARGINZ SOLUTIONS
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+const FooterComponent = () => {
+  return <Footer />;
 };
 
 export default function ContactPage() {
+  useEffect(() => {
+    // Update meta tags
+    updateMetaTags({
+      ...SEO_CONFIG.contact,
+      url: window.location.href
+    });
+    updateCanonicalUrl(window.location.href);
+
+    // Add schema markup
+    removeSchemaMarkup();
+    addSchemaMarkup(organizationSchema);
+
+    // Track page view
+    trackPageView('Contact', '/contact');
+
+    return () => {
+      removeSchemaMarkup();
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-bg-primary">
       <div className="grain-overlay" />

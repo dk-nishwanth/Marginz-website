@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Crosshair } from 'lucide-react';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { updateMetaTags, SEO_CONFIG, updateCanonicalUrl } from './utils/seo';
+import { addSchemaMarkup, removeSchemaMarkup, organizationSchema, serviceSchema } from './utils/schema';
+import { trackPageView } from './utils/analytics';
 
 interface ServiceCategory {
   title: string;
@@ -61,56 +66,15 @@ const TECH_STACK = [
   { category: 'DevOps', technologies: ['Git', 'CI/CD Pipelines', 'Vercel', 'Docker', 'AWS'] }
 ];
 
-const Navbar = () => {
-  const getPath = (item: string) => {
-    switch(item) {
-      case 'HOME': return '/';
-      case 'ABOUT': return '/about';
-      case 'SERVICES': return '/services';
-      case 'CONTACT': return '/contact';
-      default: return '/';
-    }
-  };
-
-  return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
-      <div className="pointer-events-auto">
-        <Link to="/">
-          <img 
-            src="/marginz-logo.jpg" 
-            alt="MARGINZ Logo" 
-            className="w-20 h-20 md:w-32 md:h-32 object-contain"
-            referrerPolicy="no-referrer"
-          />
-        </Link>
-      </div>
-
-      <div className="absolute left-1/2 -translate-x-1/2"></div>
-
-      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
-        {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-          <Link 
-            key={item} 
-            to={getPath(item)}
-            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none"
-          >
-            {item}
-          </Link>
-        ))}
-      </div>
-    </nav>
-  );
-};
-
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-forest">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Services Hero" 
+          alt="Services hero background" 
           className="w-full h-full object-cover grayscale brightness-[0.2]"
-          referrerPolicy="no-referrer"
+          loading="eager"
         />
         <div className="vignette absolute inset-0" />
       </div>
@@ -139,7 +103,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <button className="px-10 py-5 bg-urgency text-white font-display text-lg hover:bg-opacity-90 transition-all mt-8">
+            <button className="px-10 py-5 bg-urgency text-white font-display text-lg hover:bg-opacity-90 transition-all mt-8 focus:outline-none focus:ring-2 focus:ring-white">
               Get Consultation
             </button>
           </div>
@@ -149,9 +113,9 @@ const HeroSection = () => {
               <div className="w-full max-w-[400px] aspect-[4/5] overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=700&fit=crop&crop=center&q=85&auto=format" 
-                  alt="Services" 
+                  alt="Web development and IT services" 
                   className="w-full h-full object-cover grayscale brightness-75"
-                  referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -172,11 +136,11 @@ const ServicesOverview = () => {
               src="/marginz-logo.jpg" 
               alt="MARGINZ Logo" 
               className="w-12 h-12 object-contain"
-              referrerPolicy="no-referrer"
+              loading="lazy"
             />
             <div className="flex flex-col gap-4">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-label-muted">SERVICE CATEGORIES</span>
-              <Crosshair size={20} className="text-label-muted" />
+              <Crosshair size={20} className="text-label-muted" aria-hidden="true" />
             </div>
           </div>
 
@@ -195,16 +159,26 @@ const ServicesOverview = () => {
 };
 
 const ServiceCategories = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndices, setOpenIndices] = useState<Set<number>>(new Set([0]));
+
+  const toggleService = (index: number) => {
+    const newIndices = new Set(openIndices);
+    if (newIndices.has(index)) {
+      newIndices.delete(index);
+    } else {
+      newIndices.add(index);
+    }
+    setOpenIndices(newIndices);
+  };
 
   return (
     <section className="relative bg-forest py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Services Background" 
+          alt="Services background" 
           className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
+          loading="lazy"
         />
         <div className="vignette absolute inset-0" />
       </div>
@@ -215,12 +189,14 @@ const ServiceCategories = () => {
           Explore our comprehensive range of IT services designed to meet your business needs and drive digital transformation.
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-4" role="region" aria-label="Service categories">
           {SERVICE_CATEGORIES.map((category, i) => (
             <div key={i} className="border-b border-dashed border-white/30">
               <button 
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full py-8 flex items-center justify-between text-left group"
+                onClick={() => toggleService(i)}
+                className="w-full py-8 flex items-center justify-between text-left group focus:outline-none focus:ring-2 focus:ring-urgency px-2"
+                aria-expanded={openIndices.has(i)}
+                aria-controls={`service-answer-${i}`}
               >
                 <div>
                   <h3 className="text-2xl font-display text-white mb-2">{category.title}</h3>
@@ -228,19 +204,20 @@ const ServiceCategories = () => {
                     {category.description}
                   </p>
                 </div>
-                <div className={`transition-transform duration-300 ml-4 flex-shrink-0 ${openIndex === i ? 'rotate-180' : ''}`}>
-                  <Plus size={24} className="text-white/50" />
+                <div className={`transition-transform duration-300 ml-4 flex-shrink-0 ${openIndices.has(i) ? 'rotate-180' : ''}`}>
+                  <Plus size={24} className="text-white/50" aria-hidden="true" />
                 </div>
               </button>
               <AnimatePresence>
-                {openIndex === i && (
+                {openIndices.has(i) && (
                   <motion.div 
+                    id={`service-answer-${i}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-8 space-y-6">
+                    <div className="pb-8 space-y-6 px-2">
                       <p className="text-white/70 text-lg leading-relaxed max-w-3xl">
                         {category.fullDescription}
                       </p>
@@ -272,7 +249,7 @@ const TechStack = () => {
             <span className="font-mono text-sm uppercase tracking-[0.15em] text-label-muted">TECHNOLOGY STACK</span>
             <div className="flex flex-col gap-4">
               <span className="font-mono text-sm uppercase tracking-[0.15em] text-white/70">MODERN & RELIABLE TECH</span>
-              <Crosshair size={20} className="text-white/50" />
+              <Crosshair size={20} className="text-white/50" aria-hidden="true" />
             </div>
           </div>
           <div className="lg:col-span-8">
@@ -304,9 +281,9 @@ const CTA = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="CTA Background" 
+          alt="Call to action background" 
           className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
+          loading="lazy"
         />
         <div className="vignette absolute inset-0" />
       </div>
@@ -319,7 +296,7 @@ const CTA = () => {
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Connect with our experts to receive personalized IT guidance that aligns with your goals and growth strategy.
           </p>
-          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors">
+          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
             Get Consultation
           </button>
         </div>
@@ -328,76 +305,34 @@ const CTA = () => {
   );
 };
 
-const Footer = () => {
-  return (
-    <footer className="relative bg-forest pt-32 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1423345092054-524a33f20680?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Footer Background" 
-          className="w-full h-full object-cover grayscale brightness-[0.3]"
-          referrerPolicy="no-referrer"
-        />
-        <div className="vignette absolute inset-0" />
-      </div>
-
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-32">
-          <div className="lg:col-span-3">
-            <img 
-              src="/marginz-logo.jpg" 
-              alt="MARGINZ Logo" 
-              className="w-20 h-20 object-contain mb-8"
-              referrerPolicy="no-referrer"
-            />
-            <ul className="space-y-4 font-mono text-sm text-white/70">
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-              <li className="pt-6 mt-4 border-t border-white/20">Copyright ©2026 MARGINZ</li>
-              <li>All rights reserved</li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="font-mono text-xs uppercase tracking-[0.15em] text-white/50 mb-8">CONTACT</h4>
-            <ul className="space-y-4 font-mono text-sm text-white/70">
-              <li><a href="mailto:devx.marginz@gmail.com" className="hover:text-white transition-colors">devx.marginz@gmail.com</a></li>
-              <li><a href="tel:+19285557874" className="hover:text-white transition-colors">+1 928-555-7874</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-3">
-            <h4 className="font-mono text-xs uppercase tracking-[0.15em] text-white/50 mb-8">LOCATION</h4>
-            <address className="font-mono text-sm text-white/70 leading-relaxed not-italic">
-              5th Floor, The Executive Center<br />
-              Tamarai Tech Park, Guindy<br />
-              India
-            </address>
-          </div>
-
-          <div className="lg:col-span-3 flex flex-col items-start lg:items-end gap-4 mt-12 lg:mt-0">
-            {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-              <Link 
-                key={item}
-                to={item === 'HOME' ? '/' : item === 'ABOUT' ? '/about' : item === 'SERVICES' ? '/services' : item === 'CONTACT' ? '/contact' : `#${item.toLowerCase()}`}
-                className="font-display text-lg md:text-xl uppercase tracking-wide hover:opacity-70 transition-opacity"
-              >
-                {item}
-              </Link>
-            ))}
-            <div className="mt-8 font-mono text-xs text-white/50 uppercase tracking-[0.15em]">
-              MARGINZ SOLUTIONS
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+const FooterComponent = () => {
+  return <Footer />;
 };
 
 export default function ServicesPage() {
+  useEffect(() => {
+    // Update meta tags
+    updateMetaTags({
+      ...SEO_CONFIG.services,
+      url: window.location.href
+    });
+    updateCanonicalUrl(window.location.href);
+
+    // Add schema markup
+    removeSchemaMarkup();
+    addSchemaMarkup(organizationSchema);
+    SERVICE_CATEGORIES.forEach(service => {
+      addSchemaMarkup(serviceSchema(service.title, service.description));
+    });
+
+    // Track page view
+    trackPageView('Services', '/services');
+
+    return () => {
+      removeSchemaMarkup();
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-bg-primary">
       <div className="grain-overlay" />
