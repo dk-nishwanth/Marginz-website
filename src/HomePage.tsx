@@ -135,7 +135,6 @@ const About = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1547410175-72479977993f?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format"  
-          alt="Team collaboration background"
           className="w-full h-full object-cover grayscale brightness-[0.3]"
           loading="lazy"
         />

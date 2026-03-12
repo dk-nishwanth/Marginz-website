@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import { LoadingScreen } from './components/LoadingScreen';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
+      <LoadingScreen duration={1500} />
       <Router>
         <ScrollToTop />
         <Routes>
