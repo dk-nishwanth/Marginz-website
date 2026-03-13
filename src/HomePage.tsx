@@ -71,12 +71,21 @@ const Hero = () => {
   return (
     <section id="home" className="relative h-screen flex flex-col justify-between overflow-hidden bg-hero-bg">
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Digital transformation background" 
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
           className="w-full h-full object-cover grayscale brightness-[0.3]"
-          loading="eager"
-        />
+        >
+          <source src="/3624351-hd_1920_1080_30fps.mp4" type="video/mp4" />
+          {/* Fallback image in case video fails to load */}
+          <img 
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
+            alt="Digital transformation background" 
+            className="w-full h-full object-cover grayscale brightness-[0.3]"
+          />
+        </video>
         <div className="vignette absolute inset-0" />
       </div>
 
