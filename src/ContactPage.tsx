@@ -105,11 +105,10 @@ const ContactFormSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-sage flex items-center justify-center overflow-hidden py-32">
+    <section id="contact-form" className="relative min-h-screen bg-sage flex items-center justify-center overflow-hidden py-32">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1521791055366-0d553872952f?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Contact form background" 
           className="w-full h-full object-cover grayscale brightness-[0.3]"
           loading="lazy"
         />
@@ -293,6 +292,106 @@ const ContactFormSection = () => {
   );
 };
 
+const MapSection = () => {
+  return (
+    <section className="section-container bg-forest px-6 md:px-12">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Location Info */}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-display text-white mb-6">
+                FIND US
+              </h2>
+              <p className="text-lg text-white/80 leading-relaxed">
+                Visit our office or reach out digitally. We're here to transform your business vision into reality.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-6 h-6 bg-urgency rounded-full flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-display text-xl text-white mb-2">HEADQUARTERS</h3>
+                  <p className="text-white/70 leading-relaxed">
+                    5th Floor, The Executive Center<br />
+                    Tamarai Tech Park, Guindy<br />
+                    Chennai – 600032, India
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-6 h-6 bg-urgency rounded-full flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-display text-xl text-white mb-2">BUSINESS HOURS</h3>
+                  <p className="text-white/70 leading-relaxed">
+                    Monday - Friday: 9:00 AM - 6:00 PM IST<br />
+                    Saturday: 10:00 AM - 4:00 PM IST<br />
+                    Sunday: Closed
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-6 h-6 bg-urgency rounded-full flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-display text-xl text-white mb-2">CONTACT INFO</h3>
+                  <p className="text-white/70 leading-relaxed">
+                    Phone: +91 44 1234 5678<br />
+                    Email: hello@marginz.com<br />
+                    WhatsApp: +91 98765 43210
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Map */}
+          <div className="relative">
+            <div className="aspect-[4/3] rounded-lg overflow-hidden border border-white/20">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6404!2d80.2206!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d4f7f974f6b%3A0x2e17b4d79a4a4a4a!2sTamarai%20Tech%20Park%2C%20Guindy%2C%20Chennai%2C%20Tamil%20Nadu%20600032%2C%20India!5e0!3m2!1sen!2sus!4v1234567890123"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="MARGINZ Office Location - Chennai, India"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            
+            {/* Map overlay for styling */}
+            <div className="absolute inset-0 bg-gradient-to-t from-forest/20 to-transparent pointer-events-none rounded-lg" />
+          </div>
+        </div>
+
+        {/* Additional Info Bar */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-3 h-3 bg-urgency rounded-full animate-pulse" />
+              <span className="font-mono text-sm text-white/60 uppercase tracking-widest">
+                Available for Remote Consultations Worldwide
+              </span>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="px-4 py-2 bg-white/10 rounded-sm font-mono text-sm text-white">
+                24/7 Support
+              </div>
+              <div className="px-4 py-2 bg-urgency/20 rounded-sm font-mono text-sm text-white">
+                Global Reach
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CTA = () => {
   return (
     <section className="relative bg-forest py-32 overflow-hidden">
@@ -311,9 +410,16 @@ const CTA = () => {
           <h2 className="text-4xl md:text-7xl font-display text-white">
             TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ
           </h2>
-          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
+          <a 
+            href="#contact-form"
+            className="inline-block px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             Show your Interest
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -340,6 +446,13 @@ export default function ContactPage() {
     // Track page view
     trackPageView('Contact', '/contact');
 
+    // Scroll to contact form if hash is present
+    if (window.location.hash === '#contact-form') {
+      setTimeout(() => {
+        document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
     return () => {
       removeSchemaMarkup();
     };
@@ -352,6 +465,7 @@ export default function ContactPage() {
       <main>
         <HeroSection />
         <ContactFormSection />
+        <MapSection />
         <CTA />
       </main>
       <Footer />

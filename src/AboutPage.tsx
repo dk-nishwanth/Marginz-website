@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Crosshair } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { updateMetaTags, SEO_CONFIG, updateCanonicalUrl } from './utils/seo';
@@ -291,9 +292,12 @@ const CTA = () => {
           <h2 className="text-4xl md:text-7xl font-display text-white">
             TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ
           </h2>
-          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
+          <Link 
+            to="/contact#contact-form"
+            className="inline-block px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency"
+          >
             Show your Interest
-          </button>
+          </Link>
         </div>
       </div>
     </section>

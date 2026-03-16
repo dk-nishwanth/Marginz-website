@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Crosshair } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { updateMetaTags, SEO_CONFIG, updateCanonicalUrl } from './utils/seo';
@@ -239,9 +240,12 @@ const About = () => {
                 MARGINZ is positioned at the definitive apex of digital transformation, where uncompromising resilience is not a feature but a foundational strategic imperative. Our mission is to deliver Precision Engineering, crafting high-performance systems that secure a decisive competitive edge for major enterprises.
               </p>
               <div className="flex items-center gap-8">
-                <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
+                <Link 
+                  to="/about"
+                  className="inline-block px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency"
+                >
                   Read more
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -288,7 +292,6 @@ const Programs = () => {
             <div className="absolute inset-0 z-0">
               <img 
                 src="https://images.unsplash.com/photo-1547410175-72479977993f?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-                alt="AI and automation background"
                 className="w-full h-full object-cover grayscale brightness-[0.3]"
                 loading="lazy"
               />
@@ -424,7 +427,12 @@ const Differentiators = () => {
             <span className="font-mono text-sm text-white/50 uppercase tracking-[0.15em] relative z-10">LET'S START</span>
             <div className="space-y-6 relative z-10">
               <p className="text-xl leading-relaxed text-white">Need more information?</p>
-              <button className="px-8 py-4 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">Get in touch</button>
+              <Link 
+                to="/contact#contact-form"
+                className="inline-block px-8 py-4 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency"
+              >
+                Get in touch
+              </Link>
             </div>
           </div>
         </div>

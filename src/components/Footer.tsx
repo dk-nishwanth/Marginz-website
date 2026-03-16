@@ -16,8 +16,7 @@ export const Footer = () => {
     <footer className="relative bg-forest pt-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1423345092054-524a33f20680?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
-          alt="Footer background pattern" 
+          src="https://images.unsplash.com/photo-1423345092054-524a33f20680?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format"  
           className="w-full h-full object-cover grayscale brightness-[0.3]"
           loading="lazy"
         />

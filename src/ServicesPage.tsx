@@ -296,9 +296,12 @@ const CTA = () => {
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Connect with our experts to receive personalized IT guidance that aligns with your goals and growth strategy.
           </p>
-          <button className="px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency">
+          <Link 
+            to="/contact#contact-form"
+            className="inline-block px-10 py-5 bg-white text-forest font-display text-xl hover:bg-cream transition-colors focus:outline-none focus:ring-2 focus:ring-urgency"
+          >
             Get Consultation
-          </button>
+          </Link>
         </div>
       </div>
     </section>
