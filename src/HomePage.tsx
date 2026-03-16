@@ -22,6 +22,52 @@ interface FAQItem {
   a: string;
 }
 
+interface HeroPersona {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tagline: string;
+}
+
+const HERO_PERSONAS: HeroPersona[] = [
+  {
+    id: 'specialist',
+    title: 'The Specialist',
+    subtitle: 'Expertise & Future-Proofing',
+    description: 'The MERN Stack Masters. Deploying Enterprise-Grade Digital Foundations.',
+    tagline: 'DIGITAL TRANSFORMATION PARTNER'
+  },
+  {
+    id: 'innovator',
+    title: 'The Innovator',
+    subtitle: 'Automation & Strategic Partnership',
+    description: 'Automation Elevated. Your Partner in Building the Frictionless Enterprise.',
+    tagline: 'AUTOMATION EXCELLENCE'
+  },
+  {
+    id: 'quality-anchor',
+    title: 'The Quality Anchor',
+    subtitle: 'Quality & Reliability',
+    description: 'Quality-First Development. Where High Performance is the Minimum Standard.',
+    tagline: 'QUALITY ASSURANCE LEADER'
+  },
+  {
+    id: 'architect',
+    title: 'The Architect',
+    subtitle: 'Agility & Technology',
+    description: 'Engineering Enterprise Liberation. Scalable Systems. Zero Friction.',
+    tagline: 'SCALABLE ARCHITECTURE'
+  },
+  {
+    id: 'strategist',
+    title: 'The Strategist',
+    subtitle: 'ROI & Business Outcome',
+    description: 'Beyond Code: Delivering Measurable MARGINZ on Digital Investment.',
+    tagline: 'BUSINESS TRANSFORMATION'
+  }
+];
+
 const PROGRAMS: Program[] = [
   {
     id: '01',
@@ -68,6 +114,23 @@ const DIFFERENTIATORS = [
 ];
 
 const Hero = () => {
+  const [currentPersonaIndex, setCurrentPersonaIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentPersonaIndex((prev) => (prev + 1) % HERO_PERSONAS.length);
+        setIsTransitioning(false);
+      }, 300);
+    }, 4000); // Change every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentPersona = HERO_PERSONAS[currentPersonaIndex];
+
   return (
     <section id="home" className="relative h-screen flex flex-col justify-between overflow-hidden bg-hero-bg">
       <div className="absolute inset-0 z-0">
@@ -92,9 +155,11 @@ const Hero = () => {
       <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-12 pt-24 md:pt-32">
         <div className="flex flex-col md:flex-row items-center justify-between mt-auto mb-auto gap-8 relative z-20 w-full">
           <div className="w-full md:w-auto md:max-w-[420px] space-y-8 flex-shrink-0">
-            <p className="text-[15px] leading-relaxed text-white">
-              The Strategist - ROI & Business Outcome. Beyond Code: Delivering Measurable MARGINZ on Digital Investment. We engineer the infrastructure of tomorrow's market leadership.
-            </p>
+            <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              <p className="text-[15px] leading-relaxed text-white">
+                <span className="font-semibold">{currentPersona.title} - {currentPersona.subtitle}.</span> {currentPersona.description} We engineer the infrastructure of tomorrow's market leadership.
+              </p>
+            </div>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full overflow-hidden border border-white/20">
                 <img 
@@ -121,8 +186,8 @@ const Hero = () => {
           </div>
 
           <div className="hidden md:flex flex-col items-center justify-center gap-4 flex-shrink-0 w-8">
-            <div className="vertical-text text-[10px] font-mono text-white uppercase tracking-widest whitespace-nowrap">
-              DIGITAL TRANSFORMATION PARTNER
+            <div className={`vertical-text text-[10px] font-mono text-white uppercase tracking-widest whitespace-nowrap transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+              {currentPersona.tagline}
             </div>
             <div className="w-2 h-2 bg-urgency rounded-full" />
           </div>
