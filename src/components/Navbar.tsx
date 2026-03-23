@@ -1,42 +1,70 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+
+const NAV_ITEMS = [
+  { label: 'HOME', path: '/' },
+  { label: 'ABOUT', path: '/about' },
+  { label: 'SERVICES', path: '/services' },
+  { label: 'CONTACT', path: '/contact' },
+];
 
 export const Navbar = () => {
-  const getPath = (item: string) => {
-    switch(item) {
-      case 'HOME': return '/';
-      case 'ABOUT': return '/about';
-      case 'SERVICES': return '/services';
-      case 'CONTACT': return '/contact';
-      default: return '/';
-    }
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-8 px-6 md:px-12 flex items-start justify-between pointer-events-none bg-gradient-to-b from-black/60 to-transparent">
-      <div className="pointer-events-auto">
-        <Link to="/" aria-label="MARGINZ Home">
-          <img 
-            src="/marginz-logo.jpg" 
-            alt="MARGINZ Logo" 
-            className="w-28 h-28 md:w-40 md:h-40 object-contain"
-            loading="eager"
-          />
-        </Link>
-      </div>
+    <nav className="fixed top-0 left-0 w-full z-[100] py-4 md:py-6 px-6 md:px-12 flex items-center justify-between bg-gradient-to-b from-black/60 to-transparent">
+      {/* Logo */}
+      <Link to="/" aria-label="MARGINZ Home" className="flex-shrink-0">
+        <img
+          src="/marginz-logo.jpg"
+          alt="MARGINZ Logo"
+          className="w-16 h-16 md:w-24 md:h-24 object-contain"
+          loading="eager"
+        />
+      </Link>
 
-      <div className="flex flex-col items-end gap-2 pointer-events-auto mt-2 md:mt-0">
-        {['HOME', 'ABOUT', 'SERVICES', 'CONTACT'].map((item) => (
-          <Link 
-            key={item} 
-            to={getPath(item)}
-            className="text-lg md:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none focus:outline-none focus:ring-2 focus:ring-urgency rounded px-2 py-1"
-            aria-current={item === 'HOME' ? 'page' : undefined}
+      {/* Desktop nav */}
+      <div className="hidden md:flex flex-col items-end gap-1">
+        {NAV_ITEMS.map(({ label, path }) => (
+          <Link
+            key={label}
+            to={path}
+            className="text-xl lg:text-2xl font-display text-white hover:opacity-60 transition-opacity leading-none focus:outline-none focus:ring-2 focus:ring-urgency rounded px-2 py-1"
+            aria-current={location.pathname === path ? 'page' : undefined}
           >
-            {item}
+            {label}
           </Link>
         ))}
       </div>
+
+      {/* Mobile hamburger */}
+      <button
+        className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-urgency rounded"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? <X size={28} /> : <Menu size={28} />}
+      </button>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-forest/95 backdrop-blur-sm flex flex-col items-start px-6 py-6 gap-4 border-t border-white/10">
+          {NAV_ITEMS.map(({ label, path }) => (
+            <Link
+              key={label}
+              to={path}
+              onClick={() => setMenuOpen(false)}
+              className="text-2xl font-display text-white hover:opacity-60 transition-opacity focus:outline-none focus:ring-2 focus:ring-urgency rounded px-2 py-1 w-full"
+              aria-current={location.pathname === path ? 'page' : undefined}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

@@ -79,7 +79,7 @@ const HeroSection = () => {
         <div className="vignette absolute inset-0" />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full py-32">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full py-24 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-6 space-y-12">
             <div className="space-y-6">
@@ -108,7 +108,7 @@ const HeroSection = () => {
             </button>
           </div>
 
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-6 flex justify-center lg:justify-start">
             <div className="dashed-border w-fit">
               <div className="w-full max-w-[400px] aspect-[4/5] overflow-hidden">
                 <img 
@@ -172,7 +172,7 @@ const ServiceCategories = () => {
   };
 
   return (
-    <section className="relative bg-forest py-32 overflow-hidden">
+    <section className="relative bg-forest py-16 md:py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 
@@ -221,7 +221,7 @@ const ServiceCategories = () => {
                       <p className="text-white/70 text-lg leading-relaxed max-w-3xl">
                         {category.fullDescription}
                       </p>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         {category.services.map((service, idx) => (
                           <div key={idx} className="p-4 bg-forest/50 border border-white/10 rounded">
                             <p className="text-white/80 text-sm">{service}</p>
@@ -277,7 +277,7 @@ const TechStack = () => {
 
 const CTA = () => {
   return (
-    <section className="relative bg-forest py-32 overflow-hidden">
+    <section className="relative bg-forest py-16 md:py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 

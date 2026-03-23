@@ -44,7 +44,7 @@ const HeroSection = () => {
         <div className="vignette absolute inset-0" />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full py-32">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-12 w-full py-24 md:py-32">
         <div className="max-w-3xl">
           <div className="space-y-6">
             <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-urgency">CONTACT US</span>
@@ -295,7 +295,7 @@ const ContactFormSection = () => {
 const MapSection = () => {
   return (
     <section className="section-container bg-forest px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Location Info */}
           <div className="space-y-8">
@@ -394,7 +394,7 @@ const MapSection = () => {
 
 const CTA = () => {
   return (
-    <section className="relative bg-forest py-32 overflow-hidden">
+    <section className="relative bg-forest py-16 md:py-32 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
           src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=2000&h=1200&fit=crop&crop=center&q=85&auto=format" 

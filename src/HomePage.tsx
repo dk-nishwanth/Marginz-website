@@ -153,7 +153,7 @@ const Hero = () => {
         <div className="vignette absolute inset-0" />
       </div>
 
-      <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-12 pt-24 md:pt-32">
+      <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-12 pt-20 md:pt-32">
         <div className="flex flex-col md:flex-row items-center justify-between mt-auto mb-auto gap-8 relative z-20 w-full">
           <div className="w-full md:w-auto md:max-w-[420px] space-y-8 flex-shrink-0">
             <div className={`transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
@@ -250,7 +250,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 flex justify-center lg:justify-start">
             <div className="dashed-border w-fit">
               <div className="w-full max-w-[390px] aspect-[39/44] overflow-hidden">
                 <img 
@@ -315,7 +315,7 @@ const Programs = () => {
                 </h2>
               </div>
 
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-5 flex justify-center lg:justify-start">
                 <div className="dashed-border w-fit">
                   <div className="w-full max-w-[390px] aspect-[39/43] overflow-hidden bg-forest/50">
                     <img 
@@ -393,7 +393,7 @@ const Differentiators = () => {
           {DIFFERENTIATORS.map((item, i) => (
             <div 
               key={i}
-              className="p-12 aspect-square flex flex-col justify-between bg-forest/50 hover:bg-forest/80 transition-colors relative overflow-hidden group"
+              className="p-6 md:p-12 aspect-auto md:aspect-square flex flex-col justify-between bg-forest/50 hover:bg-forest/80 transition-colors relative overflow-hidden group min-h-[200px]"
             >
               <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-30 transition-opacity">
                 <img 
@@ -415,7 +415,7 @@ const Differentiators = () => {
               </p>
             </div>
           ))}
-          <div className="p-12 aspect-square bg-sage flex flex-col justify-between relative overflow-hidden">
+          <div className="p-6 md:p-12 aspect-auto md:aspect-square bg-sage flex flex-col justify-between relative overflow-hidden min-h-[200px]">
             <div className="absolute inset-0 z-0 opacity-20">
               <img 
                 src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop&crop=center&q=85&auto=format"
