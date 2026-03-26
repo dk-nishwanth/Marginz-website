@@ -9,7 +9,7 @@ export const initializeAnalytics = (measurementId: string) => {
   // Initialize gtag
   window.dataLayer = window.dataLayer || [];
   function gtag(...args: any[]) {
-    window.dataLayer.push(arguments);
+    window.dataLayer.push(args);
   }
   gtag('js', new Date());
   gtag('config', measurementId, {

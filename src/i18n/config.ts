@@ -1,117 +1,383 @@
 export type Language = 'en' | 'es' | 'fr' | 'de';
 
 export interface Translations {
-  [key: string]: {
-    [key: string]: string;
-  };
+  [key: string]: { [key: string]: string };
 }
 
-export const translations: Record<Language, Translations> = {
-  en: {
-    nav: {
-      home: 'HOME',
-      about: 'ABOUT',
-      services: 'SERVICES',
-      contact: 'CONTACT'
-    },
-    home: {
-      title: 'TRANSFORM',
-      subtitle: 'The Strategist - ROI & Business Outcome',
-      description: 'Beyond Code: Delivering Measurable MARGINZ on Digital Investment. We engineer the infrastructure of tomorrow\'s market leadership.'
-    },
-    about: {
-      title: 'EMPOWERING PEOPLE, BUILDING TECHNOLOGY',
-      description: 'Delivering Impact through innovative IT solutions that transform your digital presence into a powerful business asset.'
-    },
-    services: {
-      title: 'BEST IT SOLUTIONS',
-      description: 'Comprehensive IT services designed to transform your business objectives into powerful technological assets that drive growth and competitive advantage.'
-    },
-    contact: {
-      title: 'LET\'S START SOLVING YOUR IT CHALLENGES TOGETHER',
-      description: 'Connect with our digital solutions team to transform your business objectives into powerful technological assets.'
-    }
+// Helper to build a language block
+type LangBlock = Record<string, Record<string, string>>;
+
+const en: LangBlock = {
+  nav: { home:'HOME', about:'ABOUT', services:'SERVICES', contact:'CONTACT' },
+  home: {
+    heroTitle: 'TRANSFORM',
+    heroDescription: "We engineer the infrastructure of tomorrow's market leadership.",
+    heroStartJourney: 'Start Your Journey',
+    heroCompanyLabel: 'MARGINZ Solutions',
+    heroBadgeProjects: '70 PROJECTS',
+    heroBadgeUptime: '99.99% UPTIME',
+    aboutLabel: 'ABOUT MARGINZ',
+    aboutTitle: 'THE ARCHITECTURE OF UNASSAILABLE DIGITAL RESILIENCE',
+    aboutBody: "MARGINZ is positioned at the definitive apex of digital transformation, where uncompromising resilience is not a feature but a foundational strategic imperative. Our mission is to deliver Precision Engineering, crafting high-performance systems that secure a decisive competitive edge for major enterprises.",
+    aboutCta: 'Read more',
+    programsIncludedLabel: "What's included:",
+    diffTitle: 'THIS IS WHERE WE MAKE THE DIFFERENCE',
+    diffCta: "LET'S START",
+    diffCtaBody: 'Need more information?',
+    diffCtaBtn: 'Get in touch',
+    faqLabel: 'FAQ',
+    faqClickLabel: 'CLICK TO SHOW INTEL',
+    faqTitle: 'FREQUENTLY ASKED QUESTIONS',
+    p1Title:'The Specialist', p1Sub:'Expertise & Future-Proofing', p1Desc:'The MERN Stack Masters. Deploying Enterprise-Grade Digital Foundations.', p1Tag:'DIGITAL TRANSFORMATION PARTNER',
+    p2Title:'The Innovator', p2Sub:'Automation & Strategic Partnership', p2Desc:'Automation Elevated. Your Partner in Building the Frictionless Enterprise.', p2Tag:'AUTOMATION EXCELLENCE',
+    p3Title:'The Quality Anchor', p3Sub:'Quality & Reliability', p3Desc:'Quality-First Development. Where High Performance is the Minimum Standard.', p3Tag:'QUALITY ASSURANCE LEADER',
+    p4Title:'The Architect', p4Sub:'Agility & Technology', p4Desc:'Engineering Enterprise Liberation. Scalable Systems. Zero Friction.', p4Tag:'SCALABLE ARCHITECTURE',
+    p5Title:'The Strategist', p5Sub:'ROI & Business Outcome', p5Desc:'Beyond Code: Delivering Measurable MARGINZ on Digital Investment.', p5Tag:'BUSINESS TRANSFORMATION',
+    prog1Label:'Service 01', prog1Title:'Core Digital Platforms', prog1Desc:'We build the essential, proprietary software your business runs on, ensuring stability and a smooth user experience across all devices.', prog1T1:'Innovation', prog1T2:'High-Performance', prog1T3:'Stability', prog1I1:'Custom software architecture', prog1I2:'Cross-platform compatibility', prog1I3:'Enterprise-grade stability', prog1I4:'Scalable infrastructure',
+    prog2Label:'Service 02', prog2Title:'Advanced Intelligence & Automation', prog2Desc:'We integrate cutting-edge intelligence and efficient infrastructure to help your business operate smarter and faster.', prog2T1:'Quality', prog2T2:'Accessibility', prog2T3:'Smart Systems', prog2I1:'AI integration', prog2I2:'Process automation', prog2I3:'Intelligent workflows', prog2I4:'Real-time analytics',
+    prog3Label:'Service 03', prog3Title:'Strategic Modernization & Support', prog3Desc:'We modernize outdated systems, ensure all platforms connect seamlessly, and provide disciplined, long-term support.', prog3T1:'Client Success', prog3T2:'Long-term Partnership', prog3I1:'Legacy system modernization', prog3I2:'Platform integration', prog3I3:'Continuous support', prog3I4:'Performance optimization', prog3I5:'Strategic consulting',
+    diff1:'Precision Engineering: High-performance systems that secure decisive competitive advantage',
+    diff2:'Frictionless Framework: Proprietary methodology ensuring near-zero friction across workflows',
+    diff3:'Enterprise Expertise: 8 industry verticals, 100+ company partnerships, proven track record',
+    diff4:'Maximum Uptime: 99.99% operational uptime guarantee across all critical systems',
+    diff5:'Strategic Partnership: Long-term commitment to your digital transformation and market leadership',
+    faq1Q:'What services does MARGINZ provide?', faq1A:'MARGINZ specializes in digital transformation, delivering core digital platforms, advanced intelligence & automation, and strategic modernization. We focus on building high-performance systems that eliminate operational friction and drive measurable business outcomes.',
+    faq2Q:'What makes MARGINZ different?', faq2A:'We combine precision engineering with enterprise-grade reliability. Our proprietary Frictionless Framework ensures maximum uptime and delivers clear pathways to strategic objectives.',
+    faq3Q:'Can you work with enterprises of different sizes?', faq3A:'Yes. We partner with major enterprises across 8 industry verticals. Our solutions are scalable and adaptable to organizations of varying sizes and complexity levels.',
+    faq4Q:'What is your track record?', faq4A:'MARGINZ has successfully delivered 70+ project mandates with 99.99% operational uptime. We partner with 100+ companies and maintain a 99% client satisfaction rate.',
   },
-  es: {
-    nav: {
-      home: 'INICIO',
-      about: 'ACERCA DE',
-      services: 'SERVICIOS',
-      contact: 'CONTACTO'
-    },
-    home: {
-      title: 'TRANSFORMAR',
-      subtitle: 'El Estratega - ROI y Resultado Empresarial',
-      description: 'Más allá del Código: Entregando MARGINZ Medible en Inversión Digital. Diseñamos la infraestructura del liderazgo de mercado del mañana.'
-    },
-    about: {
-      title: 'EMPODERANDO PERSONAS, CONSTRUYENDO TECNOLOGÍA',
-      description: 'Entregando Impacto a través de soluciones de TI innovadoras que transforman su presencia digital en un activo empresarial poderoso.'
-    },
-    services: {
-      title: 'LAS MEJORES SOLUCIONES DE TI',
-      description: 'Servicios de TI integrales diseñados para transformar sus objetivos comerciales en activos tecnológicos poderosos que impulsen el crecimiento.'
-    },
-    contact: {
-      title: 'COMENCEMOS A RESOLVER SUS DESAFÍOS DE TI',
-      description: 'Conéctese con nuestro equipo de soluciones digitales para transformar sus objetivos comerciales en activos tecnológicos poderosos.'
-    }
+  about: {
+    label:'ABOUT MARGINZ', heroTitle:'EMPOWERING PEOPLE, BUILDING TECHNOLOGY',
+    heroBody:'Delivering Impact through innovative IT solutions that transform your digital presence into a powerful business asset.',
+    heroCta:'Start Your Journey', heroStatYears:'Years of Experience', heroStatClients:'Clients Served',
+    missionLabel:'OUR MISSION & VISION', missionTitle:'2+ YEARS OF COMBINED EXPERTISE',
+    visionHeading:'Our Vision', visionBody:'To be a trusted global leader in innovative IT solutions, empowering organizations to thrive through technology, efficiency, and digital transformation.',
+    missionHeading:'Our Mission', missionBody:'To build innovative, scalable, and secure software that transforms business objectives into technological assets, ensuring measurable impact and long-term growth.',
+    missionExtra:"Driving Digital Transformation with Scalable, Secure Solutions. We create innovative, reliable IT solutions that enhance user engagement and streamline operations—turning your digital presence into a powerful business asset.",
+    milestonesTitle:'COMPANY MILESTONES', milestonesBody:"Milestones That Power Digital Transformation. Each achievement reflects our drive to build innovative, scalable, and secure solutions—turning business objectives into powerful technological assets and delivering measurable impact for every client.",
+    ms1:'Years of Experience', ms2:'Completed Projects', ms3:'Clients Served', ms4:'Expert Team Members',
+    valuesLabel:'OUR CORE VALUES', valuesSubLabel:'BUILDING YOUR DIGITAL ADVANTAGE', valuesTitle:'OUR CORE VALUES',
+    v1Title:'Innovation', v1Desc:'Transforming Ideas into Impact', v1Full:'We embrace cutting-edge technologies like MERN, Next.js, and progressive web apps to craft scalable, secure solutions that keep our clients ahead of the curve.',
+    v2Title:'Quality & Scalability', v2Desc:'Building for Long-Term Growth', v2Full:'Every product is engineered with robust CI/CD pipelines, thorough testing frameworks, and cloud-ready architectures to ensure reliability and seamless scaling.',
+    v3Title:'Collaboration', v3Desc:'Blending Expertise for Success', v3Full:"Our team structure—Project Directors, SMEs, Technical Leads, and UI/UX specialists—ensures each project benefits from a diverse mix of experience and leadership.",
+    v4Title:'Integrity', v4Desc:'Transparent and Accountable', v4Full:"We uphold the highest standards of honesty and responsibility, ensuring that every solution aligns with our clients' goals and ethical expectations.",
+    v5Title:'Client Success', v5Desc:'Your Goals, Our Mission', v5Full:'By focusing on measurable outcomes, we transform business objectives into powerful digital assets that drive sustainable growth and competitive advantage.',
+    v6Title:'Continuous Learning', v6Desc:'Evolving with Technology', v6Full:'From React and Angular to emerging stacks, we invest in ongoing skill development so we can deliver the most modern, future-ready solutions possible.',
+    ctaTitle:'TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ', ctaBtn:'Show your Interest',
   },
-  fr: {
-    nav: {
-      home: 'ACCUEIL',
-      about: 'À PROPOS',
-      services: 'SERVICES',
-      contact: 'CONTACT'
-    },
-    home: {
-      title: 'TRANSFORMER',
-      subtitle: 'Le Stratège - ROI et Résultat Commercial',
-      description: 'Au-delà du Code: Livrer des MARGINZ Mesurables sur l\'Investissement Numérique. Nous concevons l\'infrastructure du leadership du marché de demain.'
-    },
-    about: {
-      title: 'AUTONOMISER LES GENS, CONSTRUIRE LA TECHNOLOGIE',
-      description: 'Livrer l\'Impact grâce à des solutions informatiques innovantes qui transforment votre présence numérique en un atout commercial puissant.'
-    },
-    services: {
-      title: 'LES MEILLEURES SOLUTIONS INFORMATIQUES',
-      description: 'Services informatiques complets conçus pour transformer vos objectifs commerciaux en actifs technologiques puissants qui stimulent la croissance.'
-    },
-    contact: {
-      title: 'COMMENÇONS À RÉSOUDRE VOS DÉFIS INFORMATIQUES',
-      description: 'Connectez-vous avec notre équipe de solutions numériques pour transformer vos objectifs commerciaux en actifs technologiques puissants.'
-    }
+  services: {
+    label:'OUR SERVICES', heroTitle:'BEST IT SOLUTIONS',
+    heroBody:'Comprehensive IT services designed to transform your business objectives into powerful technological assets that drive growth and competitive advantage.',
+    heroCta:'Get Consultation', heroStatCategories:'Service Categories', heroStatExperts:'Expert Professionals',
+    overviewLabel:'SERVICE CATEGORIES', overviewTitle:'COMPREHENSIVE IT SOLUTIONS FOR YOUR BUSINESS',
+    overviewBody:'From dynamic websites and progressive web applications to enterprise-level CRM/ERP systems and learning management platforms, we deliver tailored solutions that align with your business goals and drive measurable results.',
+    servicesTitle:'OUR SERVICES', servicesBody:'Explore our comprehensive range of IT services designed to meet your business needs and drive digital transformation.',
+    c1Title:'Websites', c1Desc:'Dynamic & Static Web Solutions', c1Full:'We develop both corporate dynamic websites with content management systems, SEO optimization, and responsive design, as well as fast-loading static websites.', c1S1:'Corporate Dynamic Websites', c1S2:'Corporate Static Websites', c1S3:'Landing Pages', c1S4:'E-commerce Platforms',
+    c2Title:'Web Applications', c2Desc:'Custom & Progressive Solutions', c2Full:'From customized dashboards with real-time analytics to Progressive Web Applications with offline functionality and push notifications.', c2S1:'Customized Dashboards', c2S2:'Progressive Web Applications', c2S3:'Real-time Analytics', c2S4:'Data Visualization',
+    c3Title:'Enterprise Solutions', c3Desc:'CRM & ERP Systems', c3Full:'Comprehensive enterprise resource planning and customer relationship management systems tailored to your business needs.', c3S1:'CRM Systems', c3S2:'ERP Solutions', c3S3:'Business Process Automation', c3S4:'Integration Services',
+    c4Title:'Digital Platforms', c4Desc:'LMS & CMS Solutions', c4Full:'Learning and content management platforms with advanced user role management for educational institutions and businesses.', c4S1:'Learning Management Systems', c4S2:'Content Management Systems', c4S3:'User Role Management', c4S4:'Content Delivery',
+    c5Title:'Cloud & DevOps', c5Desc:'Deployment & Infrastructure', c5Full:'We leverage modern deployment technologies including Git, CI/CD pipelines, and cloud platforms like Vercel to ensure your applications are scalable, secure, and always available.', c5S1:'CI/CD Pipelines', c5S2:'Cloud Deployment', c5S3:'Infrastructure Management', c5S4:'Performance Optimization',
+    c6Title:'Technology Stack', c6Desc:'Modern & Reliable Tech', c6Full:'Our expertise spans React.js, Angular, Node.js, Express.js, and databases like MongoDB, MySQL, PostgreSQL.', c6S1:'Frontend Development', c6S2:'Backend Development', c6S3:'Database Design', c6S4:'API Development',
+    techCat1:'Frontend', techCat2:'Backend', techCat3:'Databases', techCat4:'DevOps',
+    techLabel:'TECHNOLOGY STACK', techSubLabel:'MODERN & RELIABLE TECH', techTitle:'TECHNOLOGY EXPERTISE',
+    ctaTitle:'READY TO TRANSFORM YOUR BUSINESS?', ctaBody:'Connect with our experts to receive personalized IT guidance that aligns with your goals and growth strategy.', ctaBtn:'Get Consultation',
   },
-  de: {
-    nav: {
-      home: 'STARTSEITE',
-      about: 'ÜBER UNS',
-      services: 'DIENSTLEISTUNGEN',
-      contact: 'KONTAKT'
-    },
-    home: {
-      title: 'TRANSFORMIEREN',
-      subtitle: 'Der Stratege - ROI und Geschäftsergebnis',
-      description: 'Jenseits von Code: Messbare MARGINZ bei digitalen Investitionen liefern. Wir entwickeln die Infrastruktur der Marktführerschaft von morgen.'
-    },
-    about: {
-      title: 'MENSCHEN BEFÄHIGEN, TECHNOLOGIE AUFBAUEN',
-      description: 'Auswirkungen durch innovative IT-Lösungen liefern, die Ihre digitale Präsenz in ein starkes Geschäftsvermögen umwandeln.'
-    },
-    services: {
-      title: 'BESTE IT-LÖSUNGEN',
-      description: 'Umfassende IT-Dienstleistungen zur Umwandlung Ihrer Geschäftsziele in starke technologische Vermögenswerte, die Wachstum fördern.'
-    },
-    contact: {
-      title: 'LASSEN SIE UNS IHRE IT-HERAUSFORDERUNGEN LÖSEN',
-      description: 'Verbinden Sie sich mit unserem Digital-Solutions-Team, um Ihre Geschäftsziele in starke technologische Vermögenswerte umzuwandeln.'
-    }
-  }
+  contact: {
+    label:'CONTACT US', heroTitle:"LET'S START SOLVING YOUR IT CHALLENGES TOGETHER",
+    heroBody:'Connect with our digital solutions team to transform your business objectives into powerful technological assets.',
+    formLabel:'CONTACT FORM', formTitle:'CONTACT FORM AND INFORMATION',
+    getInTouch:'GET IN TOUCH', getInTouchSub:'Connect With Our Digital Solutions Team',
+    getInTouchBody:"Partner with us to transform your business objectives into powerful technological assets. Our experts are ready to discuss scalable, secure, and innovative solutions for your next project.",
+    detailsTitle:'CONTACT DETAILS', locationLabel:'Our Location', phoneLabel:'Phone', emailLabel:'Email',
+    fieldName:'Name', fieldEmail:'Email', fieldService:'Select Service', fieldSubject:'Subject', fieldMessage:'Message',
+    fieldNamePlaceholder:'Your name', fieldEmailPlaceholder:'your@email.com', fieldSubjectPlaceholder:'Subject', fieldMessagePlaceholder:'Your message', fieldServicePlaceholder:'Select service',
+    submitBtn:'Send Message', submitting:'Sending...',
+    successMsg:'Thank you! Your message has been sent successfully.',
+    errorMsg:'Something went wrong. Please try again or email us directly.',
+    errNameRequired:'Name is required', errEmailRequired:'Email is required', errEmailInvalid:'Invalid email format',
+    errServiceRequired:'Please select a service', errSubjectRequired:'Subject is required', errMessageRequired:'Message is required',
+    findUs:'FIND US', findUsBody:"Visit our office or reach out digitally. We're here to transform your business vision into reality.",
+    hqLabel:'HEADQUARTERS', hoursLabel:'BUSINESS HOURS',
+    hoursLine1:'Monday - Friday: 9:00 AM - 6:00 PM IST', hoursLine2:'Saturday: 10:00 AM - 4:00 PM IST', hoursLine3:'Sunday: Closed',
+    contactInfoLabel:'CONTACT INFO', remoteLabel:'Available for Remote Consultations Worldwide',
+    supportBadge:'24/7 Support', globalBadge:'Global Reach',
+    ctaTitle:'TRANSFORMING YOUR DIGITAL VISION INTO POWERFUL BUSINESS ASSETS WITH MARGINZ', ctaBtn:'Show your Interest',
+  },
+  footer: { privacy:'Privacy Policy', terms:'Terms & Conditions', cookie:'Cookie Policy', copyright:'Copyright ©2026 MARGINZ', rights:'All rights reserved', contact:'CONTACT', location:'LOCATION' },
 };
 
+const es: LangBlock = {
+  nav: { home:'INICIO', about:'ACERCA DE', services:'SERVICIOS', contact:'CONTACTO' },
+  home: {
+    heroTitle:'TRANSFORMAR', heroDescription:'Diseñamos la infraestructura del liderazgo de mercado del mañana.',
+    heroStartJourney:'Comience su Viaje', heroCompanyLabel:'MARGINZ Soluciones',
+    heroBadgeProjects:'70 PROYECTOS', heroBadgeUptime:'99.99% DISPONIBILIDAD',
+    aboutLabel:'ACERCA DE MARGINZ', aboutTitle:'LA ARQUITECTURA DE UNA RESILIENCIA DIGITAL INEXPUGNABLE',
+    aboutBody:'MARGINZ se posiciona en el ápice definitivo de la transformación digital, donde la resiliencia inquebrantable no es una característica sino un imperativo estratégico fundamental.',
+    aboutCta:'Leer más', programsIncludedLabel:'Qué incluye:',
+    diffTitle:'AQUÍ ES DONDE MARCAMOS LA DIFERENCIA', diffCta:'EMPECEMOS', diffCtaBody:'¿Necesita más información?', diffCtaBtn:'Contáctenos',
+    faqLabel:'PREGUNTAS FRECUENTES', faqClickLabel:'HAGA CLIC PARA VER', faqTitle:'PREGUNTAS FRECUENTES',
+    p1Title:'El Especialista', p1Sub:'Experiencia y Preparación para el Futuro', p1Desc:'Los Maestros del Stack MERN. Desplegando Fundamentos Digitales de Nivel Empresarial.', p1Tag:'SOCIO DE TRANSFORMACIÓN DIGITAL',
+    p2Title:'El Innovador', p2Sub:'Automatización y Asociación Estratégica', p2Desc:'Automatización Elevada. Su Socio en la Construcción de la Empresa sin Fricciones.', p2Tag:'EXCELENCIA EN AUTOMATIZACIÓN',
+    p3Title:'El Ancla de Calidad', p3Sub:'Calidad y Confiabilidad', p3Desc:'Desarrollo con Calidad Primero. Donde el Alto Rendimiento es el Estándar Mínimo.', p3Tag:'LÍDER EN ASEGURAMIENTO DE CALIDAD',
+    p4Title:'El Arquitecto', p4Sub:'Agilidad y Tecnología', p4Desc:'Ingeniería de Liberación Empresarial. Sistemas Escalables. Cero Fricción.', p4Tag:'ARQUITECTURA ESCALABLE',
+    p5Title:'El Estratega', p5Sub:'ROI y Resultado Empresarial', p5Desc:'Más allá del Código: Entregando MARGINZ Medible en Inversión Digital.', p5Tag:'TRANSFORMACIÓN EMPRESARIAL',
+    prog1Label:'Servicio 01', prog1Title:'Plataformas Digitales Principales', prog1Desc:'Construimos el software esencial y propietario en el que se basa su negocio, garantizando estabilidad y una experiencia de usuario fluida.', prog1T1:'Innovación', prog1T2:'Alto Rendimiento', prog1T3:'Estabilidad', prog1I1:'Arquitectura de software personalizada', prog1I2:'Compatibilidad multiplataforma', prog1I3:'Estabilidad de nivel empresarial', prog1I4:'Infraestructura escalable',
+    prog2Label:'Servicio 02', prog2Title:'Inteligencia Avanzada y Automatización', prog2Desc:'Integramos inteligencia de vanguardia e infraestructura eficiente para ayudar a su negocio a operar de manera más inteligente y rápida.', prog2T1:'Calidad', prog2T2:'Accesibilidad', prog2T3:'Sistemas Inteligentes', prog2I1:'Integración de IA', prog2I2:'Automatización de procesos', prog2I3:'Flujos de trabajo inteligentes', prog2I4:'Análisis en tiempo real',
+    prog3Label:'Servicio 03', prog3Title:'Modernización Estratégica y Soporte', prog3Desc:'Modernizamos sistemas obsoletos, garantizamos que todas las plataformas se conecten sin problemas y brindamos soporte disciplinado a largo plazo.', prog3T1:'Éxito del Cliente', prog3T2:'Asociación a Largo Plazo', prog3I1:'Modernización de sistemas heredados', prog3I2:'Integración de plataformas', prog3I3:'Soporte continuo', prog3I4:'Optimización del rendimiento', prog3I5:'Consultoría estratégica',
+    diff1:'Ingeniería de Precisión: Sistemas de alto rendimiento que aseguran una ventaja competitiva decisiva',
+    diff2:'Marco sin Fricciones: Metodología propietaria que garantiza fricción casi nula en los flujos de trabajo',
+    diff3:'Experiencia Empresarial: 8 verticales industriales, más de 100 asociaciones empresariales',
+    diff4:'Máxima Disponibilidad: Garantía de disponibilidad operativa del 99.99% en todos los sistemas críticos',
+    diff5:'Asociación Estratégica: Compromiso a largo plazo con su transformación digital y liderazgo de mercado',
+    faq1Q:'¿Qué servicios ofrece MARGINZ?', faq1A:'MARGINZ se especializa en transformación digital, entregando plataformas digitales principales, inteligencia avanzada y automatización, y modernización estratégica.',
+    faq2Q:'¿Qué hace diferente a MARGINZ?', faq2A:'Combinamos ingeniería de precisión con confiabilidad de nivel empresarial. Nuestro Marco sin Fricciones propietario garantiza el máximo tiempo de actividad.',
+    faq3Q:'¿Pueden trabajar con empresas de diferentes tamaños?', faq3A:'Sí. Nos asociamos con grandes empresas en 8 verticales industriales. Nuestras soluciones son escalables y adaptables.',
+    faq4Q:'¿Cuál es su historial?', faq4A:'MARGINZ ha entregado con éxito más de 70 mandatos de proyectos con un 99.99% de tiempo de actividad operativa.',
+  },
+  about: {
+    label:'ACERCA DE MARGINZ', heroTitle:'EMPODERANDO PERSONAS, CONSTRUYENDO TECNOLOGÍA',
+    heroBody:'Entregando Impacto a través de soluciones de TI innovadoras que transforman su presencia digital en un activo empresarial poderoso.',
+    heroCta:'Comience su Viaje', heroStatYears:'Años de Experiencia', heroStatClients:'Clientes Atendidos',
+    missionLabel:'NUESTRA MISIÓN Y VISIÓN', missionTitle:'2+ AÑOS DE EXPERIENCIA COMBINADA',
+    visionHeading:'Nuestra Visión', visionBody:'Ser un líder global de confianza en soluciones de TI innovadoras, empoderando a las organizaciones para prosperar a través de la tecnología.',
+    missionHeading:'Nuestra Misión', missionBody:'Construir software innovador, escalable y seguro que transforme los objetivos empresariales en activos tecnológicos.',
+    missionExtra:'Impulsando la Transformación Digital con Soluciones Escalables y Seguras.',
+    milestonesTitle:'HITOS DE LA EMPRESA', milestonesBody:'Hitos que impulsan la Transformación Digital. Cada logro refleja nuestro impulso para construir soluciones innovadoras.',
+    ms1:'Años de Experiencia', ms2:'Proyectos Completados', ms3:'Clientes Atendidos', ms4:'Miembros del Equipo Experto',
+    valuesLabel:'NUESTROS VALORES FUNDAMENTALES', valuesSubLabel:'CONSTRUYENDO SU VENTAJA DIGITAL', valuesTitle:'NUESTROS VALORES FUNDAMENTALES',
+    v1Title:'Innovación', v1Desc:'Transformando Ideas en Impacto', v1Full:'Adoptamos tecnologías de vanguardia como MERN, Next.js y aplicaciones web progresivas para crear soluciones escalables y seguras.',
+    v2Title:'Calidad y Escalabilidad', v2Desc:'Construyendo para el Crecimiento a Largo Plazo', v2Full:'Cada producto está diseñado con pipelines CI/CD robustos, marcos de prueba exhaustivos y arquitecturas listas para la nube.',
+    v3Title:'Colaboración', v3Desc:'Combinando Experiencia para el Éxito', v3Full:'Nuestra estructura de equipo garantiza que cada proyecto se beneficie de una combinación diversa de experiencia y liderazgo.',
+    v4Title:'Integridad', v4Desc:'Transparente y Responsable', v4Full:'Mantenemos los más altos estándares de honestidad y responsabilidad.',
+    v5Title:'Éxito del Cliente', v5Desc:'Sus Metas, Nuestra Misión', v5Full:'Al enfocarnos en resultados medibles, transformamos los objetivos empresariales en activos digitales poderosos.',
+    v6Title:'Aprendizaje Continuo', v6Desc:'Evolucionando con la Tecnología', v6Full:'Desde React y Angular hasta stacks emergentes, invertimos en el desarrollo continuo de habilidades.',
+    ctaTitle:'TRANSFORMANDO SU VISIÓN DIGITAL EN ACTIVOS EMPRESARIALES PODEROSOS CON MARGINZ', ctaBtn:'Mostrar su Interés',
+  },
+  services: {
+    label:'NUESTROS SERVICIOS', heroTitle:'LAS MEJORES SOLUCIONES DE TI',
+    heroBody:'Servicios de TI integrales diseñados para transformar sus objetivos comerciales en activos tecnológicos poderosos.',
+    heroCta:'Obtener Consulta', heroStatCategories:'Categorías de Servicios', heroStatExperts:'Profesionales Expertos',
+    overviewLabel:'CATEGORÍAS DE SERVICIOS', overviewTitle:'SOLUCIONES DE TI INTEGRALES PARA SU NEGOCIO',
+    overviewBody:'Desde sitios web dinámicos y aplicaciones web progresivas hasta sistemas CRM/ERP de nivel empresarial.',
+    servicesTitle:'NUESTROS SERVICIOS', servicesBody:'Explore nuestra amplia gama de servicios de TI diseñados para satisfacer sus necesidades empresariales.',
+    c1Title:'Sitios Web', c1Desc:'Soluciones Web Dinámicas y Estáticas', c1Full:'Desarrollamos sitios web corporativos dinámicos con sistemas de gestión de contenido, optimización SEO y diseño responsivo.', c1S1:'Sitios Web Corporativos Dinámicos', c1S2:'Sitios Web Corporativos Estáticos', c1S3:'Páginas de Aterrizaje', c1S4:'Plataformas de Comercio Electrónico',
+    c2Title:'Aplicaciones Web', c2Desc:'Soluciones Personalizadas y Progresivas', c2Full:'Desde paneles personalizados con análisis en tiempo real hasta Aplicaciones Web Progresivas.', c2S1:'Paneles Personalizados', c2S2:'Aplicaciones Web Progresivas', c2S3:'Análisis en Tiempo Real', c2S4:'Visualización de Datos',
+    c3Title:'Soluciones Empresariales', c3Desc:'Sistemas CRM y ERP', c3Full:'Sistemas integrales de planificación de recursos empresariales y gestión de relaciones con clientes.', c3S1:'Sistemas CRM', c3S2:'Soluciones ERP', c3S3:'Automatización de Procesos', c3S4:'Servicios de Integración',
+    c4Title:'Plataformas Digitales', c4Desc:'Soluciones LMS y CMS', c4Full:'Plataformas de aprendizaje y gestión de contenido con gestión avanzada de roles de usuario.', c4S1:'Sistemas de Gestión de Aprendizaje', c4S2:'Sistemas de Gestión de Contenido', c4S3:'Gestión de Roles', c4S4:'Entrega de Contenido',
+    c5Title:'Cloud y DevOps', c5Desc:'Despliegue e Infraestructura', c5Full:'Aprovechamos tecnologías modernas de despliegue incluyendo Git, pipelines CI/CD y plataformas en la nube.', c5S1:'Pipelines CI/CD', c5S2:'Despliegue en la Nube', c5S3:'Gestión de Infraestructura', c5S4:'Optimización del Rendimiento',
+    c6Title:'Stack Tecnológico', c6Desc:'Tecnología Moderna y Confiable', c6Full:'Nuestra experiencia abarca React.js, Angular, Node.js, Express.js y bases de datos como MongoDB, MySQL, PostgreSQL.', c6S1:'Desarrollo Frontend', c6S2:'Desarrollo Backend', c6S3:'Diseño de Bases de Datos', c6S4:'Desarrollo de API',
+    techCat1:'Frontend', techCat2:'Backend', techCat3:'Bases de Datos', techCat4:'DevOps',
+    techLabel:'STACK TECNOLÓGICO', techSubLabel:'TECNOLOGÍA MODERNA Y CONFIABLE', techTitle:'EXPERIENCIA TECNOLÓGICA',
+    ctaTitle:'¿LISTO PARA TRANSFORMAR SU NEGOCIO?', ctaBody:'Conéctese con nuestros expertos para recibir orientación de TI personalizada.', ctaBtn:'Obtener Consulta',
+  },
+  contact: {
+    label:'CONTÁCTENOS', heroTitle:'COMENCEMOS A RESOLVER SUS DESAFÍOS DE TI JUNTOS',
+    heroBody:'Conéctese con nuestro equipo de soluciones digitales para transformar sus objetivos comerciales.',
+    formLabel:'FORMULARIO DE CONTACTO', formTitle:'FORMULARIO DE CONTACTO E INFORMACIÓN',
+    getInTouch:'PÓNGASE EN CONTACTO', getInTouchSub:'Conéctese con Nuestro Equipo de Soluciones Digitales',
+    getInTouchBody:'Asóciese con nosotros para transformar sus objetivos comerciales en activos tecnológicos poderosos.',
+    detailsTitle:'DETALLES DE CONTACTO', locationLabel:'Nuestra Ubicación', phoneLabel:'Teléfono', emailLabel:'Correo Electrónico',
+    fieldName:'Nombre', fieldEmail:'Correo Electrónico', fieldService:'Seleccionar Servicio', fieldSubject:'Asunto', fieldMessage:'Mensaje',
+    fieldNamePlaceholder:'Su nombre', fieldEmailPlaceholder:'su@correo.com', fieldSubjectPlaceholder:'Asunto', fieldMessagePlaceholder:'Su mensaje', fieldServicePlaceholder:'Seleccionar servicio',
+    submitBtn:'Enviar Mensaje', submitting:'Enviando...',
+    successMsg:'¡Gracias! Su mensaje ha sido enviado exitosamente.',
+    errorMsg:'Algo salió mal. Por favor intente de nuevo o envíenos un correo.',
+    errNameRequired:'El nombre es obligatorio', errEmailRequired:'El correo es obligatorio', errEmailInvalid:'Formato de correo inválido',
+    errServiceRequired:'Por favor seleccione un servicio', errSubjectRequired:'El asunto es obligatorio', errMessageRequired:'El mensaje es obligatorio',
+    findUs:'ENCUÉNTRENOS', findUsBody:'Visítenos o contáctenos digitalmente. Estamos aquí para transformar su visión empresarial en realidad.',
+    hqLabel:'SEDE CENTRAL', hoursLabel:'HORARIO DE ATENCIÓN',
+    hoursLine1:'Lunes - Viernes: 9:00 AM - 6:00 PM IST', hoursLine2:'Sábado: 10:00 AM - 4:00 PM IST', hoursLine3:'Domingo: Cerrado',
+    contactInfoLabel:'INFORMACIÓN DE CONTACTO', remoteLabel:'Disponible para Consultas Remotas en Todo el Mundo',
+    supportBadge:'Soporte 24/7', globalBadge:'Alcance Global',
+    ctaTitle:'TRANSFORMANDO SU VISIÓN DIGITAL EN ACTIVOS EMPRESARIALES PODEROSOS CON MARGINZ', ctaBtn:'Mostrar su Interés',
+  },
+  footer: { privacy:'Política de Privacidad', terms:'Términos y Condiciones', cookie:'Política de Cookies', copyright:'Copyright ©2026 MARGINZ', rights:'Todos los derechos reservados', contact:'CONTACTO', location:'UBICACIÓN' },
+};
+
+const fr: LangBlock = {
+  nav: { home:'ACCUEIL', about:'À PROPOS', services:'SERVICES', contact:'CONTACT' },
+  home: {
+    heroTitle:'TRANSFORMER', heroDescription:"Nous concevons l'infrastructure du leadership du marché de demain.",
+    heroStartJourney:'Commencez Votre Voyage', heroCompanyLabel:'MARGINZ Solutions',
+    heroBadgeProjects:'70 PROJETS', heroBadgeUptime:'99.99% DISPONIBILITÉ',
+    aboutLabel:'À PROPOS DE MARGINZ', aboutTitle:"L'ARCHITECTURE D'UNE RÉSILIENCE NUMÉRIQUE INATTAQUABLE",
+    aboutBody:"MARGINZ se positionne au sommet définitif de la transformation numérique, où la résilience sans compromis n'est pas une fonctionnalité mais un impératif stratégique fondamental.",
+    aboutCta:'En savoir plus', programsIncludedLabel:'Ce qui est inclus:',
+    diffTitle:"C'EST ICI QUE NOUS FAISONS LA DIFFÉRENCE", diffCta:'COMMENÇONS', diffCtaBody:"Besoin de plus d'informations?", diffCtaBtn:'Contactez-nous',
+    faqLabel:'FAQ', faqClickLabel:'CLIQUEZ POUR AFFICHER', faqTitle:'QUESTIONS FRÉQUEMMENT POSÉES',
+    p1Title:'Le Spécialiste', p1Sub:'Expertise et Préparation Future', p1Desc:'Les Maîtres du Stack MERN. Déploiement de Fondations Numériques de Niveau Entreprise.', p1Tag:'PARTENAIRE DE TRANSFORMATION NUMÉRIQUE',
+    p2Title:"L'Innovateur", p2Sub:'Automatisation et Partenariat Stratégique', p2Desc:"Automatisation Élevée. Votre Partenaire dans la Construction de l'Entreprise sans Friction.", p2Tag:"EXCELLENCE EN AUTOMATISATION",
+    p3Title:"L'Ancre Qualité", p3Sub:'Qualité et Fiabilité', p3Desc:'Développement Qualité en Premier. Où la Haute Performance est le Standard Minimum.', p3Tag:"LEADER EN ASSURANCE QUALITÉ",
+    p4Title:"L'Architecte", p4Sub:'Agilité et Technologie', p4Desc:"Ingénierie de Libération d'Entreprise. Systèmes Évolutifs. Zéro Friction.", p4Tag:'ARCHITECTURE ÉVOLUTIVE',
+    p5Title:'Le Stratège', p5Sub:'ROI et Résultat Commercial', p5Desc:'Au-delà du Code: Livrer des MARGINZ Mesurables sur l\'Investissement Numérique.', p5Tag:'TRANSFORMATION COMMERCIALE',
+    prog1Label:'Service 01', prog1Title:'Plateformes Numériques Principales', prog1Desc:"Nous construisons le logiciel essentiel et propriétaire sur lequel repose votre entreprise, garantissant stabilité et expérience utilisateur fluide.", prog1T1:'Innovation', prog1T2:'Haute Performance', prog1T3:'Stabilité', prog1I1:'Architecture logicielle personnalisée', prog1I2:'Compatibilité multiplateforme', prog1I3:"Stabilité de niveau entreprise", prog1I4:'Infrastructure évolutive',
+    prog2Label:'Service 02', prog2Title:'Intelligence Avancée et Automatisation', prog2Desc:"Nous intégrons une intelligence de pointe et une infrastructure efficace pour aider votre entreprise à fonctionner plus intelligemment.", prog2T1:'Qualité', prog2T2:'Accessibilité', prog2T3:'Systèmes Intelligents', prog2I1:"Intégration de l'IA", prog2I2:'Automatisation des processus', prog2I3:'Flux de travail intelligents', prog2I4:'Analyses en temps réel',
+    prog3Label:'Service 03', prog3Title:'Modernisation Stratégique et Support', prog3Desc:"Nous modernisons les systèmes obsolètes, assurons la connexion transparente de toutes les plateformes et fournissons un support discipliné à long terme.", prog3T1:'Succès Client', prog3T2:'Partenariat à Long Terme', prog3I1:'Modernisation des systèmes hérités', prog3I2:'Intégration de plateformes', prog3I3:'Support continu', prog3I4:'Optimisation des performances', prog3I5:'Conseil stratégique',
+    diff1:'Ingénierie de Précision: Systèmes haute performance qui sécurisent un avantage concurrentiel décisif',
+    diff2:'Cadre sans Friction: Méthodologie propriétaire garantissant une friction quasi nulle dans les flux de travail',
+    diff3:'Expertise Entreprise: 8 secteurs industriels, plus de 100 partenariats d\'entreprise',
+    diff4:'Disponibilité Maximale: Garantie de disponibilité opérationnelle de 99,99% sur tous les systèmes critiques',
+    diff5:'Partenariat Stratégique: Engagement à long terme envers votre transformation numérique',
+    faq1Q:'Quels services MARGINZ fournit-il?', faq1A:'MARGINZ se spécialise dans la transformation numérique, livrant des plateformes numériques principales, une intelligence avancée et une automatisation.',
+    faq2Q:'Qu\'est-ce qui différencie MARGINZ?', faq2A:"Nous combinons l'ingénierie de précision avec la fiabilité de niveau entreprise. Notre Cadre sans Friction propriétaire garantit un temps de disponibilité maximum.",
+    faq3Q:'Pouvez-vous travailler avec des entreprises de différentes tailles?', faq3A:'Oui. Nous nous associons avec de grandes entreprises dans 8 secteurs industriels. Nos solutions sont évolutives et adaptables.',
+    faq4Q:'Quel est votre bilan?', faq4A:'MARGINZ a livré avec succès plus de 70 mandats de projets avec 99,99% de disponibilité opérationnelle.',
+  },
+  about: {
+    label:'À PROPOS DE MARGINZ', heroTitle:'AUTONOMISER LES GENS, CONSTRUIRE LA TECHNOLOGIE',
+    heroBody:"Livrer l'Impact grâce à des solutions informatiques innovantes qui transforment votre présence numérique en un atout commercial puissant.",
+    heroCta:'Commencez Votre Voyage', heroStatYears:"Années d'Expérience", heroStatClients:'Clients Servis',
+    missionLabel:'NOTRE MISSION ET VISION', missionTitle:"2+ ANS D'EXPERTISE COMBINÉE",
+    visionHeading:'Notre Vision', visionBody:"Être un leader mondial de confiance dans les solutions informatiques innovantes, permettant aux organisations de prospérer grâce à la technologie.",
+    missionHeading:'Notre Mission', missionBody:'Construire des logiciels innovants, évolutifs et sécurisés qui transforment les objectifs commerciaux en actifs technologiques.',
+    missionExtra:'Conduire la Transformation Numérique avec des Solutions Évolutives et Sécurisées.',
+    milestonesTitle:"JALONS DE L'ENTREPRISE", milestonesBody:'Des jalons qui alimentent la Transformation Numérique. Chaque réalisation reflète notre volonté de construire des solutions innovantes.',
+    ms1:"Années d'Expérience", ms2:'Projets Complétés', ms3:'Clients Servis', ms4:"Membres de l'Équipe Expert",
+    valuesLabel:'NOS VALEURS FONDAMENTALES', valuesSubLabel:'CONSTRUIRE VOTRE AVANTAGE NUMÉRIQUE', valuesTitle:'NOS VALEURS FONDAMENTALES',
+    v1Title:'Innovation', v1Desc:'Transformer les Idées en Impact', v1Full:"Nous adoptons des technologies de pointe comme MERN, Next.js et les applications web progressives pour créer des solutions évolutives et sécurisées.",
+    v2Title:'Qualité et Évolutivité', v2Desc:'Construire pour la Croissance à Long Terme', v2Full:"Chaque produit est conçu avec des pipelines CI/CD robustes, des cadres de test approfondis et des architectures prêtes pour le cloud.",
+    v3Title:'Collaboration', v3Desc:"Mélanger l'Expertise pour le Succès", v3Full:"Notre structure d'équipe garantit que chaque projet bénéficie d'un mélange diversifié d'expérience et de leadership.",
+    v4Title:'Intégrité', v4Desc:'Transparent et Responsable', v4Full:"Nous maintenons les plus hauts standards d'honnêteté et de responsabilité.",
+    v5Title:'Succès Client', v5Desc:'Vos Objectifs, Notre Mission', v5Full:'En nous concentrant sur des résultats mesurables, nous transformons les objectifs commerciaux en actifs numériques puissants.',
+    v6Title:'Apprentissage Continu', v6Desc:'Évoluer avec la Technologie', v6Full:"De React et Angular aux stacks émergents, nous investissons dans le développement continu des compétences.",
+    ctaTitle:'TRANSFORMER VOTRE VISION NUMÉRIQUE EN ACTIFS COMMERCIAUX PUISSANTS AVEC MARGINZ', ctaBtn:'Montrez votre Intérêt',
+  },
+  services: {
+    label:'NOS SERVICES', heroTitle:'LES MEILLEURES SOLUTIONS INFORMATIQUES',
+    heroBody:'Services informatiques complets conçus pour transformer vos objectifs commerciaux en actifs technologiques puissants.',
+    heroCta:'Obtenir une Consultation', heroStatCategories:'Catégories de Services', heroStatExperts:'Professionnels Experts',
+    overviewLabel:'CATÉGORIES DE SERVICES', overviewTitle:'SOLUTIONS INFORMATIQUES COMPLÈTES POUR VOTRE ENTREPRISE',
+    overviewBody:"Des sites web dynamiques aux systèmes CRM/ERP d'entreprise et aux plateformes de gestion de l'apprentissage.",
+    servicesTitle:'NOS SERVICES', servicesBody:'Explorez notre gamme complète de services informatiques conçus pour répondre à vos besoins.',
+    c1Title:'Sites Web', c1Desc:'Solutions Web Dynamiques et Statiques', c1Full:'Nous développons des sites web corporatifs dynamiques avec des systèmes de gestion de contenu, optimisation SEO et design responsive.', c1S1:'Sites Web Corporatifs Dynamiques', c1S2:'Sites Web Corporatifs Statiques', c1S3:"Pages d'Atterrissage", c1S4:'Plateformes E-commerce',
+    c2Title:'Applications Web', c2Desc:'Solutions Personnalisées et Progressives', c2Full:'Des tableaux de bord personnalisés avec analyses en temps réel aux Applications Web Progressives.', c2S1:'Tableaux de Bord Personnalisés', c2S2:'Applications Web Progressives', c2S3:'Analyses en Temps Réel', c2S4:'Visualisation de Données',
+    c3Title:'Solutions Entreprise', c3Desc:'Systèmes CRM et ERP', c3Full:'Systèmes complets de planification des ressources et de gestion des relations clients adaptés à vos besoins.', c3S1:'Systèmes CRM', c3S2:'Solutions ERP', c3S3:'Automatisation des Processus', c3S4:"Services d'Intégration",
+    c4Title:'Plateformes Numériques', c4Desc:'Solutions LMS et CMS', c4Full:"Plateformes d'apprentissage et de gestion de contenu avec gestion avancée des rôles utilisateurs.", c4S1:"Systèmes de Gestion de l'Apprentissage", c4S2:'Systèmes de Gestion de Contenu', c4S3:'Gestion des Rôles', c4S4:'Livraison de Contenu',
+    c5Title:'Cloud et DevOps', c5Desc:'Déploiement et Infrastructure', c5Full:'Nous exploitons des technologies de déploiement modernes incluant Git, pipelines CI/CD et plateformes cloud comme Vercel.', c5S1:'Pipelines CI/CD', c5S2:'Déploiement Cloud', c5S3:"Gestion de l'Infrastructure", c5S4:'Optimisation des Performances',
+    c6Title:'Stack Technologique', c6Desc:'Technologie Moderne et Fiable', c6Full:'Notre expertise couvre React.js, Angular, Node.js, Express.js et des bases de données comme MongoDB, MySQL, PostgreSQL.', c6S1:'Développement Frontend', c6S2:'Développement Backend', c6S3:'Conception de Bases de Données', c6S4:"Développement d'API",
+    techCat1:'Frontend', techCat2:'Backend', techCat3:'Bases de Données', techCat4:'DevOps',
+    techLabel:'STACK TECHNOLOGIQUE', techSubLabel:'TECHNOLOGIE MODERNE ET FIABLE', techTitle:'EXPERTISE TECHNOLOGIQUE',
+    ctaTitle:'PRÊT À TRANSFORMER VOTRE ENTREPRISE?', ctaBody:'Connectez-vous avec nos experts pour recevoir des conseils informatiques personnalisés.', ctaBtn:'Obtenir une Consultation',
+  },
+  contact: {
+    label:'CONTACTEZ-NOUS', heroTitle:'COMMENÇONS À RÉSOUDRE VOS DÉFIS INFORMATIQUES ENSEMBLE',
+    heroBody:'Connectez-vous avec notre équipe de solutions numériques pour transformer vos objectifs commerciaux.',
+    formLabel:'FORMULAIRE DE CONTACT', formTitle:'FORMULAIRE DE CONTACT ET INFORMATIONS',
+    getInTouch:'PRENEZ CONTACT', getInTouchSub:'Connectez-vous avec Notre Équipe de Solutions Numériques',
+    getInTouchBody:'Associez-vous à nous pour transformer vos objectifs commerciaux en actifs technologiques puissants.',
+    detailsTitle:'COORDONNÉES', locationLabel:'Notre Emplacement', phoneLabel:'Téléphone', emailLabel:'E-mail',
+    fieldName:'Nom', fieldEmail:'E-mail', fieldService:'Sélectionner un Service', fieldSubject:'Sujet', fieldMessage:'Message',
+    fieldNamePlaceholder:'Votre nom', fieldEmailPlaceholder:'votre@email.com', fieldSubjectPlaceholder:'Sujet', fieldMessagePlaceholder:'Votre message', fieldServicePlaceholder:'Sélectionner un service',
+    submitBtn:'Envoyer le Message', submitting:'Envoi en cours...',
+    successMsg:'Merci! Votre message a été envoyé avec succès.',
+    errorMsg:"Quelque chose s'est mal passé. Veuillez réessayer ou nous envoyer un e-mail.",
+    errNameRequired:'Le nom est requis', errEmailRequired:"L'e-mail est requis", errEmailInvalid:"Format d'e-mail invalide",
+    errServiceRequired:'Veuillez sélectionner un service', errSubjectRequired:'Le sujet est requis', errMessageRequired:'Le message est requis',
+    findUs:'TROUVEZ-NOUS', findUsBody:'Visitez notre bureau ou contactez-nous numériquement.',
+    hqLabel:'SIÈGE SOCIAL', hoursLabel:"HEURES D'OUVERTURE",
+    hoursLine1:'Lundi - Vendredi: 9h00 - 18h00 IST', hoursLine2:'Samedi: 10h00 - 16h00 IST', hoursLine3:'Dimanche: Fermé',
+    contactInfoLabel:'INFORMATIONS DE CONTACT', remoteLabel:'Disponible pour des Consultations à Distance dans le Monde Entier',
+    supportBadge:'Support 24/7', globalBadge:'Portée Mondiale',
+    ctaTitle:'TRANSFORMER VOTRE VISION NUMÉRIQUE EN ACTIFS COMMERCIAUX PUISSANTS AVEC MARGINZ', ctaBtn:'Montrez votre Intérêt',
+  },
+  footer: { privacy:'Politique de Confidentialité', terms:'Termes et Conditions', cookie:'Politique de Cookies', copyright:'Copyright ©2026 MARGINZ', rights:'Tous droits réservés', contact:'CONTACT', location:'EMPLACEMENT' },
+};
+
+const de: LangBlock = {
+  nav: { home:'STARTSEITE', about:'ÜBER UNS', services:'DIENSTLEISTUNGEN', contact:'KONTAKT' },
+  home: {
+    heroTitle:'TRANSFORMIEREN', heroDescription:'Wir entwickeln die Infrastruktur der Marktführerschaft von morgen.',
+    heroStartJourney:'Starten Sie Ihre Reise', heroCompanyLabel:'MARGINZ Lösungen',
+    heroBadgeProjects:'70 PROJEKTE', heroBadgeUptime:'99.99% VERFÜGBARKEIT',
+    aboutLabel:'ÜBER MARGINZ', aboutTitle:'DIE ARCHITEKTUR UNERSCHÜTTERLICHER DIGITALER RESILIENZ',
+    aboutBody:'MARGINZ ist an der definitiven Spitze der digitalen Transformation positioniert, wo kompromisslose Resilienz kein Merkmal, sondern ein grundlegendes strategisches Gebot ist.',
+    aboutCta:'Mehr lesen', programsIncludedLabel:'Was enthalten ist:',
+    diffTitle:'HIER MACHEN WIR DEN UNTERSCHIED', diffCta:'FANGEN WIR AN', diffCtaBody:'Benötigen Sie weitere Informationen?', diffCtaBtn:'Kontakt aufnehmen',
+    faqLabel:'FAQ', faqClickLabel:'KLICKEN SIE ZUM ANZEIGEN', faqTitle:'HÄUFIG GESTELLTE FRAGEN',
+    p1Title:'Der Spezialist', p1Sub:'Expertise und Zukunftssicherheit', p1Desc:'Die MERN Stack Meister. Bereitstellung von Enterprise-Grade Digitalen Grundlagen.', p1Tag:'PARTNER FÜR DIGITALE TRANSFORMATION',
+    p2Title:'Der Innovator', p2Sub:'Automatisierung und Strategische Partnerschaft', p2Desc:'Automatisierung auf höchstem Niveau. Ihr Partner beim Aufbau des reibungslosen Unternehmens.', p2Tag:'EXZELLENZ IN DER AUTOMATISIERUNG',
+    p3Title:'Der Qualitätsanker', p3Sub:'Qualität und Zuverlässigkeit', p3Desc:'Qualitätsorientierte Entwicklung. Wo Hochleistung der Mindeststandard ist.', p3Tag:'QUALITÄTSSICHERUNGSFÜHRER',
+    p4Title:'Der Architekt', p4Sub:'Agilität und Technologie', p4Desc:'Unternehmensbefreiungstechnik. Skalierbare Systeme. Null Reibung.', p4Tag:'SKALIERBARE ARCHITEKTUR',
+    p5Title:'Der Stratege', p5Sub:'ROI und Geschäftsergebnis', p5Desc:'Jenseits von Code: Messbare MARGINZ bei digitalen Investitionen liefern.', p5Tag:'GESCHÄFTSTRANSFORMATION',
+    prog1Label:'Dienst 01', prog1Title:'Kerndigitale Plattformen', prog1Desc:'Wir bauen die wesentliche, proprietäre Software, auf der Ihr Unternehmen läuft, und gewährleisten Stabilität und eine reibungslose Benutzererfahrung.', prog1T1:'Innovation', prog1T2:'Hochleistung', prog1T3:'Stabilität', prog1I1:'Benutzerdefinierte Softwarearchitektur', prog1I2:'Plattformübergreifende Kompatibilität', prog1I3:'Stabilität auf Unternehmensebene', prog1I4:'Skalierbare Infrastruktur',
+    prog2Label:'Dienst 02', prog2Title:'Fortgeschrittene Intelligenz und Automatisierung', prog2Desc:'Wir integrieren modernste Intelligenz und effiziente Infrastruktur, um Ihrem Unternehmen zu helfen, intelligenter und schneller zu arbeiten.', prog2T1:'Qualität', prog2T2:'Zugänglichkeit', prog2T3:'Intelligente Systeme', prog2I1:'KI-Integration', prog2I2:'Prozessautomatisierung', prog2I3:'Intelligente Workflows', prog2I4:'Echtzeit-Analysen',
+    prog3Label:'Dienst 03', prog3Title:'Strategische Modernisierung und Support', prog3Desc:'Wir modernisieren veraltete Systeme, stellen sicher, dass alle Plattformen nahtlos verbunden sind, und bieten disziplinierten Langzeitsupport.', prog3T1:'Kundenerfolg', prog3T2:'Langfristige Partnerschaft', prog3I1:'Modernisierung von Legacy-Systemen', prog3I2:'Plattformintegration', prog3I3:'Kontinuierlicher Support', prog3I4:'Leistungsoptimierung', prog3I5:'Strategische Beratung',
+    diff1:'Präzisionstechnik: Hochleistungssysteme, die einen entscheidenden Wettbewerbsvorteil sichern',
+    diff2:'Reibungsloses Framework: Proprietäre Methodik, die nahezu null Reibung in Workflows gewährleistet',
+    diff3:'Unternehmensexpertise: 8 Branchenvertikalen, über 100 Unternehmenspartnerschaften',
+    diff4:'Maximale Verfügbarkeit: 99,99% Betriebsverfügbarkeitsgarantie für alle kritischen Systeme',
+    diff5:'Strategische Partnerschaft: Langfristiges Engagement für Ihre digitale Transformation',
+    faq1Q:'Welche Dienstleistungen bietet MARGINZ an?', faq1A:'MARGINZ ist auf digitale Transformation spezialisiert und liefert Kerndigitale Plattformen, fortgeschrittene Intelligenz und Automatisierung sowie strategische Modernisierung.',
+    faq2Q:'Was macht MARGINZ anders?', faq2A:'Wir kombinieren Präzisionstechnik mit Zuverlässigkeit auf Unternehmensebene. Unser proprietäres Reibungsloses Framework gewährleistet maximale Verfügbarkeit.',
+    faq3Q:'Können Sie mit Unternehmen unterschiedlicher Größe arbeiten?', faq3A:'Ja. Wir arbeiten mit großen Unternehmen in 8 Branchenvertikalen zusammen. Unsere Lösungen sind skalierbar und anpassungsfähig.',
+    faq4Q:'Wie ist Ihre Erfolgsbilanz?', faq4A:'MARGINZ hat erfolgreich über 70 Projektmandate mit 99,99% Betriebsverfügbarkeit geliefert.',
+  },
+  about: {
+    label:'ÜBER MARGINZ', heroTitle:'MENSCHEN BEFÄHIGEN, TECHNOLOGIE AUFBAUEN',
+    heroBody:'Auswirkungen durch innovative IT-Lösungen liefern, die Ihre digitale Präsenz in ein starkes Geschäftsvermögen umwandeln.',
+    heroCta:'Starten Sie Ihre Reise', heroStatYears:'Jahre Erfahrung', heroStatClients:'Betreute Kunden',
+    missionLabel:'UNSERE MISSION UND VISION', missionTitle:'2+ JAHRE KOMBINIERTER ERFAHRUNG',
+    visionHeading:'Unsere Vision', visionBody:'Ein vertrauenswürdiger globaler Marktführer in innovativen IT-Lösungen zu sein, der Organisationen befähigt, durch Technologie zu gedeihen.',
+    missionHeading:'Unsere Mission', missionBody:'Innovative, skalierbare und sichere Software zu entwickeln, die Geschäftsziele in technologische Vermögenswerte umwandelt.',
+    missionExtra:'Digitale Transformation mit skalierbaren, sicheren Lösungen vorantreiben.',
+    milestonesTitle:'UNTERNEHMENSMEILENSTEINE', milestonesBody:'Meilensteine, die die digitale Transformation antreiben. Jede Leistung spiegelt unseren Antrieb wider, innovative Lösungen zu entwickeln.',
+    ms1:'Jahre Erfahrung', ms2:'Abgeschlossene Projekte', ms3:'Betreute Kunden', ms4:'Experten-Teammitglieder',
+    valuesLabel:'UNSERE KERNWERTE', valuesSubLabel:'AUFBAU IHRES DIGITALEN VORTEILS', valuesTitle:'UNSERE KERNWERTE',
+    v1Title:'Innovation', v1Desc:'Ideen in Wirkung umwandeln', v1Full:'Wir setzen auf modernste Technologien wie MERN, Next.js und progressive Web-Apps, um skalierbare, sichere Lösungen zu entwickeln.',
+    v2Title:'Qualität und Skalierbarkeit', v2Desc:'Für langfristiges Wachstum bauen', v2Full:'Jedes Produkt wird mit robusten CI/CD-Pipelines, gründlichen Test-Frameworks und cloud-fähigen Architekturen entwickelt.',
+    v3Title:'Zusammenarbeit', v3Desc:'Expertise für Erfolg kombinieren', v3Full:'Unsere Teamstruktur stellt sicher, dass jedes Projekt von einer vielfältigen Mischung aus Erfahrung und Führung profitiert.',
+    v4Title:'Integrität', v4Desc:'Transparent und verantwortungsbewusst', v4Full:'Wir halten die höchsten Standards für Ehrlichkeit und Verantwortung ein.',
+    v5Title:'Kundenerfolg', v5Desc:'Ihre Ziele, unsere Mission', v5Full:'Durch die Fokussierung auf messbare Ergebnisse transformieren wir Geschäftsziele in leistungsstarke digitale Assets.',
+    v6Title:'Kontinuierliches Lernen', v6Desc:'Mit der Technologie weiterentwickeln', v6Full:'Von React und Angular bis hin zu aufkommenden Stacks investieren wir in kontinuierliche Kompetenzentwicklung.',
+    ctaTitle:'IHRE DIGITALE VISION IN STARKE GESCHÄFTSVERMÖGEN MIT MARGINZ UMWANDELN', ctaBtn:'Interesse zeigen',
+  },
+  services: {
+    label:'UNSERE DIENSTLEISTUNGEN', heroTitle:'BESTE IT-LÖSUNGEN',
+    heroBody:'Umfassende IT-Dienstleistungen zur Umwandlung Ihrer Geschäftsziele in starke technologische Vermögenswerte.',
+    heroCta:'Beratung erhalten', heroStatCategories:'Dienstleistungskategorien', heroStatExperts:'Experten-Fachleute',
+    overviewLabel:'DIENSTLEISTUNGSKATEGORIEN', overviewTitle:'UMFASSENDE IT-LÖSUNGEN FÜR IHR UNTERNEHMEN',
+    overviewBody:'Von dynamischen Websites und progressiven Web-Apps bis hin zu CRM/ERP-Systemen auf Unternehmensebene.',
+    servicesTitle:'UNSERE DIENSTLEISTUNGEN', servicesBody:'Entdecken Sie unser umfassendes Angebot an IT-Dienstleistungen für Ihre Geschäftsanforderungen.',
+    c1Title:'Websites', c1Desc:'Dynamische und Statische Web-Lösungen', c1Full:'Wir entwickeln sowohl dynamische Unternehmenswebsites mit Content-Management-Systemen als auch schnell ladende statische Websites.', c1S1:'Dynamische Unternehmenswebsites', c1S2:'Statische Unternehmenswebsites', c1S3:'Landing Pages', c1S4:'E-Commerce-Plattformen',
+    c2Title:'Web-Anwendungen', c2Desc:'Benutzerdefinierte und Progressive Lösungen', c2Full:'Von benutzerdefinierten Dashboards mit Echtzeit-Analysen bis hin zu Progressiven Web-Anwendungen.', c2S1:'Benutzerdefinierte Dashboards', c2S2:'Progressive Web-Anwendungen', c2S3:'Echtzeit-Analysen', c2S4:'Datenvisualisierung',
+    c3Title:'Unternehmenslösungen', c3Desc:'CRM- und ERP-Systeme', c3Full:'Umfassende Unternehmensressourcenplanung und Kundenbeziehungsmanagement-Systeme.', c3S1:'CRM-Systeme', c3S2:'ERP-Lösungen', c3S3:'Geschäftsprozessautomatisierung', c3S4:'Integrationsdienste',
+    c4Title:'Digitale Plattformen', c4Desc:'LMS- und CMS-Lösungen', c4Full:'Lern- und Content-Management-Plattformen mit erweiterter Benutzerrollenverwaltung.', c4S1:'Lernmanagementsysteme', c4S2:'Content-Management-Systeme', c4S3:'Benutzerrollenverwaltung', c4S4:'Inhaltsbereitstellung',
+    c5Title:'Cloud und DevOps', c5Desc:'Bereitstellung und Infrastruktur', c5Full:'Wir nutzen moderne Bereitstellungstechnologien einschließlich Git, CI/CD-Pipelines und Cloud-Plattformen wie Vercel.', c5S1:'CI/CD-Pipelines', c5S2:'Cloud-Bereitstellung', c5S3:'Infrastrukturverwaltung', c5S4:'Leistungsoptimierung',
+    c6Title:'Technologie-Stack', c6Desc:'Moderne und Zuverlässige Technologie', c6Full:'Unsere Expertise umfasst React.js, Angular, Node.js, Express.js und Datenbanken wie MongoDB, MySQL, PostgreSQL.', c6S1:'Frontend-Entwicklung', c6S2:'Backend-Entwicklung', c6S3:'Datenbankdesign', c6S4:'API-Entwicklung',
+    techCat1:'Frontend', techCat2:'Backend', techCat3:'Datenbanken', techCat4:'DevOps',
+    techLabel:'TECHNOLOGIE-STACK', techSubLabel:'MODERNE UND ZUVERLÄSSIGE TECHNOLOGIE', techTitle:'TECHNOLOGIE-EXPERTISE',
+    ctaTitle:'BEREIT, IHR UNTERNEHMEN ZU TRANSFORMIEREN?', ctaBody:'Verbinden Sie sich mit unseren Experten für personalisierte IT-Beratung.', ctaBtn:'Beratung erhalten',
+  },
+  contact: {
+    label:'KONTAKTIEREN SIE UNS', heroTitle:'LASSEN SIE UNS IHRE IT-HERAUSFORDERUNGEN GEMEINSAM LÖSEN',
+    heroBody:'Verbinden Sie sich mit unserem Digital-Solutions-Team, um Ihre Geschäftsziele in starke technologische Vermögenswerte umzuwandeln.',
+    formLabel:'KONTAKTFORMULAR', formTitle:'KONTAKTFORMULAR UND INFORMATIONEN',
+    getInTouch:'KONTAKT AUFNEHMEN', getInTouchSub:'Verbinden Sie sich mit Unserem Digital-Solutions-Team',
+    getInTouchBody:'Arbeiten Sie mit uns zusammen, um Ihre Geschäftsziele in starke technologische Vermögenswerte umzuwandeln.',
+    detailsTitle:'KONTAKTDATEN', locationLabel:'Unser Standort', phoneLabel:'Telefon', emailLabel:'E-Mail',
+    fieldName:'Name', fieldEmail:'E-Mail', fieldService:'Dienst auswählen', fieldSubject:'Betreff', fieldMessage:'Nachricht',
+    fieldNamePlaceholder:'Ihr Name', fieldEmailPlaceholder:'ihre@email.com', fieldSubjectPlaceholder:'Betreff', fieldMessagePlaceholder:'Ihre Nachricht', fieldServicePlaceholder:'Dienst auswählen',
+    submitBtn:'Nachricht senden', submitting:'Wird gesendet...',
+    successMsg:'Danke! Ihre Nachricht wurde erfolgreich gesendet.',
+    errorMsg:'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder senden Sie uns eine E-Mail.',
+    errNameRequired:'Name ist erforderlich', errEmailRequired:'E-Mail ist erforderlich', errEmailInvalid:'Ungültiges E-Mail-Format',
+    errServiceRequired:'Bitte wählen Sie einen Dienst aus', errSubjectRequired:'Betreff ist erforderlich', errMessageRequired:'Nachricht ist erforderlich',
+    findUs:'FINDEN SIE UNS', findUsBody:'Besuchen Sie unser Büro oder kontaktieren Sie uns digital.',
+    hqLabel:'HAUPTSITZ', hoursLabel:'GESCHÄFTSZEITEN',
+    hoursLine1:'Montag - Freitag: 9:00 - 18:00 Uhr IST', hoursLine2:'Samstag: 10:00 - 16:00 Uhr IST', hoursLine3:'Sonntag: Geschlossen',
+    contactInfoLabel:'KONTAKTINFORMATIONEN', remoteLabel:'Verfügbar für Remote-Beratungen weltweit',
+    supportBadge:'24/7 Support', globalBadge:'Globale Reichweite',
+    ctaTitle:'IHRE DIGITALE VISION IN STARKE GESCHÄFTSVERMÖGEN MIT MARGINZ UMWANDELN', ctaBtn:'Interesse zeigen',
+  },
+  footer: { privacy:'Datenschutzrichtlinie', terms:'Allgemeine Geschäftsbedingungen', cookie:'Cookie-Richtlinie', copyright:'Copyright ©2026 MARGINZ', rights:'Alle Rechte vorbehalten', contact:'KONTAKT', location:'STANDORT' },
+};
+
+export const translations: Record<Language, Translations> = { en, es, fr, de };
+
 export const useTranslation = (language: Language) => {
-  return (key: string, section: string = 'common'): string => {
-    return translations[language]?.[section]?.[key] || key;
+  return (section: string, key: string): string => {
+    return translations[language]?.[section]?.[key] ?? translations['en']?.[section]?.[key] ?? key;
   };
 };
 
